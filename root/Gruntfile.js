@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     grunt.initConfig({
 
         assetsDir: 'app',
@@ -17,8 +19,7 @@ module.exports = function(grunt) {
                     dest: '<%= distDir %>/',
                     src: [
                         'index.html',
-                        'img/**',
-                        'partials/**'
+                        'img/**'
                     ]
                 }]
             }
@@ -58,18 +59,22 @@ module.exports = function(grunt) {
             }
         },
         watch: {
+            options: {
+                livereload: true
+            },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
-                tasks: ['jshint', 'karma:unit:run'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['jshint', 'karma:unit:run']
+            },
+            html : {
+                files: ['<%= assetsDir %>/**/*.html']
             },
             css: {
-                files: ['<%= assetsDir %>/css/**/*.css'],
+                files: ['<%= assetsDir %>/css/**/*.css']{% if (csslint) { %},
                 tasks: ['csslint']
+                {% } %}
             }
-        },
+        }, {% if (csslint) { %}
         csslint: {
             options: {
                 csslintrc: '.csslintrc'
@@ -77,17 +82,15 @@ module.exports = function(grunt) {
             all : {
                 src : ['<%= assetsDir %>/css/**/*.css']
             }
-        },
-        karma: {
-            unit: {
+        }, {% } %}
+        connect: {
+            server: {
                 options: {
-                    configFile: 'test/conf/unit-test-conf.js',
-                    background: true  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
-                }
-            },
-            e2e: {
-                options: {
-                    configFile: 'test/conf/e2e-test-conf.js'
+                    port: 8888,
+                    base: '<%= assetsDir %>',
+                    keepalive: false,
+                    livereload: true,
+                    open: true
                 }
             }
         }
@@ -99,21 +102,6 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-rev');
-    grunt.loadNpmTasks('grunt-ngmin');
-    grunt.loadNpmTasks('grunt-usemin');
-
-    grunt.registerTask('dev', ['karma:unit:start', 'watch']);
     grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'rev', 'usemin' ]);
 
 };

@@ -47,56 +47,80 @@ exports.template = function(grunt, init, done) {
             name : 'gitignore',
             message : 'Add .gitignore ?'.blue,
             default : 'y/N'
+        },
+        {
+            name : 'csslint',
+            message : 'Lint your CSS ?'.blue,
+            default : 'y/N'
         }
-
-
     ], function(err, props) {
 
-        var bowerDevDependencies,
-            npmDevDependencies,
+        var bowerContent,
+            packageContent,
             files = init.filesToCopy(props);
+
+        /***************************
+         * PROCESS AND COPY FILES  *
+         ***************************/
 
         if(/n/i.test(props.gitignore)){
             delete files['.gitignore'];
         }
 
+        if(!/n/i.test(props.csslint)){
+            props['csslint'] = true;
+        } else {
+            props['csslint'] = false;
+        }
+
         init.copyAndProcess(files, props, {noProcess: '.gitignore'});
 
-        npmDevDependencies = {
-            "grunt-usemin": "~2.0.0",
-            "grunt-ngmin": "0.0.3",
-            "grunt-contrib-clean": "~0.5.0",
-            "grunt-contrib-concat": "~0.3.0",
-            "grunt-contrib-uglify": "~0.2.7",
-            "grunt-contrib-copy": "~0.4.1",
-            "grunt-contrib-jshint": "~0.7.2",
-            "grunt-rev": "~0.1.0"
-        };
+        /**************************
+         *  GENERATE PACKAGE.JSON *
+         **************************/
 
-        grunt.log.writeln(JSON.stringify(props));
-
-        init.writePackageJSON('package.json', {
+        packageContent = {
             name: props.name,
             version: props.version,
             description: props.description,
-            devDependencies: npmDevDependencies
-        });
+            devDependencies: {
+                "grunt-usemin": "~2.0.0",
+                "grunt-ngmin": "0.0.3",
+                "grunt-contrib-clean": "~0.5.0",
+                "grunt-contrib-concat": "~0.3.0",
+                "grunt-contrib-uglify": "~0.2.7",
+                "grunt-contrib-cssmin": "~0.7.0",
+                "grunt-contrib-watch": "~0.5.3",
+                "grunt-contrib-copy": "~0.4.1",
+                "grunt-contrib-jshint": "~0.7.2",
+                "grunt-contrib-connect": "~0.5.0",
+                "load-grunt-tasks": "~0.2.0",
+                "grunt-rev": "~0.1.0"
+            }
+        };
 
-        bowerDevDependencies =  {
-            "angular": "~" + props.angular_version,
-            "angular-route": "~" + props.angular_version
+        init.writePackageJSON('package.json', packageContent);
+
+
+        /***********************
+         * GENERATE BOWER.JSON *
+         ***********************/
+
+        bowerContent =  {
+            name: props.name,
+            version: props.version,
+            description: props.description,
+            devDependencies: {
+                "angular": "~" + props.angular_version,
+                "angular-route": "~" + props.angular_version
+            }
         };
 
         if(!/n/i.test(props.i18n)){
-            bowerDevDependencies.devDependencies['angular-i18n'] = "~" + props.angular_version;
+            bowerContent.devDependencies['angular-i18n'] = "~" + props.angular_version;
         }
 
-        init.writePackageJSON('bower.json', {
-            name: props.name,
-            version: props.version,
-            description: props.description,
-            devDependencies: bowerDevDependencies
-        });
+        init.writePackageJSON('bower.json', bowerContent);
 
         done();
     });
