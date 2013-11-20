@@ -7,6 +7,12 @@ module.exports = function(grunt) {
         assetsDir: 'app',
         distDir: 'dist',
 
+        'bower-install': {
+            target: {
+                html: '<%= assetsDir %>/index.html',
+                ignorePath: '<%= assetsDir %>/'
+            }
+        },
         clean: {
             dist: ['.tmp', '<%= distDir %>']
         },

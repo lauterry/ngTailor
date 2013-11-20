@@ -91,10 +91,12 @@ exports.template = function(grunt, init, done) {
                 "grunt-contrib-uglify": "~0.2.7",
                 "grunt-contrib-cssmin": "~0.7.0",
                 "grunt-contrib-watch": "~0.5.3",
+                "grunt-bower-task": "~0.3.4",
                 "grunt-contrib-copy": "~0.4.1",
                 "grunt-contrib-jshint": "~0.7.2",
                 "grunt-contrib-connect": "~0.5.0",
                 "load-grunt-tasks": "~0.2.0",
+                "grunt-bower-install": "~0.6.1",
                 "grunt-rev": "~0.1.0"
             }
         };
@@ -110,14 +112,14 @@ exports.template = function(grunt, init, done) {
             name: props.name,
             version: props.version,
             description: props.description,
-            devDependencies: {
+            dependencies: {
                 "angular": "~" + props.angular_version,
                 "angular-route": "~" + props.angular_version
             }
         };
 
         if(!/n/i.test(props.i18n)){
-            bowerContent.devDependencies['angular-i18n'] = "~" + props.angular_version;
+            bowerContent.dependencies['angular-i18n'] = "~" + props.angular_version;
         }
 
         init.writePackageJSON('bower.json', bowerContent);
