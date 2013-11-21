@@ -10,7 +10,9 @@ module.exports = function(grunt) {
         'bower-install': {
             target: {
                 html: '<%= assetsDir %>/index.html',
-                ignorePath: '<%= assetsDir %>/'
+                ignorePath: '<%= assetsDir %>/',
+                jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>',
+                cssPattern: '<link rel="stylesheet" href="{{filePath}}" >'
             }
         },
         clean: {
@@ -108,6 +110,6 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'rev', 'usemin' ]);
+    grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
 
 };

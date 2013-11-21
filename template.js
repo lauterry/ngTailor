@@ -52,6 +52,11 @@ exports.template = function(grunt, init, done) {
             name : 'csslint',
             message : 'Lint your CSS ?'.blue,
             default : 'y/N'
+        },
+        {
+            name : 'revision',
+            message : 'Add revision hash in your assets name for caching purpose ?  app.js becomes 8664d46sf64.app.js'.blue,
+            default : 'y/N'
         }
     ], function(err, props) {
 
@@ -67,11 +72,9 @@ exports.template = function(grunt, init, done) {
             delete files['.gitignore'];
         }
 
-        if(!/n/i.test(props.csslint)){
-            props.['csslint'] = true;
-        } else {
-            props['csslint'] = false;
-        }
+        props['csslint'] = !/n/i.test(props.csslint);
+
+        props['revision'] = !/n/i.test(props.revision);
 
         init.copyAndProcess(files, props, {noProcess: '.gitignore'});
 
