@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                 options: {
                     port: 8888,
                     base: '<%= assetsDir %>',
-                    keepalive: false,
+                    keepalive: true,
                     livereload: true,
                     open: true
                 }

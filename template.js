@@ -19,7 +19,7 @@ exports.after = 'You should now install project dependencies with _npm '.cyan +
     'more information about installing and configuring Grunt, please see '.cyan +
     'the Getting Started guide:'.cyan +
     '\n\n' +
-    'http://gruntjs.com/getting-started'.cyan
+    'http://gruntjs.com/getting-started'.cyan;
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '';
@@ -68,7 +68,7 @@ exports.template = function(grunt, init, done) {
         }
 
         if(!/n/i.test(props.csslint)){
-            props['csslint'] = true;
+            props.['csslint'] = true;
         } else {
             props['csslint'] = false;
         }
