@@ -3,11 +3,11 @@ grunt-init-angular
 
 Scaffold an Angular project fitted to your needs using modern Front End tooling.
 
-<img height="250" align="left" src="http://bower.io/img/bower-logo.png">
+<img height="280" align="left" src="http://bower.io/img/bower-logo.png">
 
-<img height="250" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
+<img height="280" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
 
-<img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
+<img height="280" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
 
 ## Why is grunt-init-angular awesome ?
 * Interactive way to scaffold your angular project to fit your needs. 
