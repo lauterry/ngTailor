@@ -3,12 +3,18 @@ grunt-init-angular
 
 Scaffold an Angular project fitted to your needs using modern Front End tooling.
 
+<img height="250" align="left" src="http://bower.io/img/bower-logo.png">
+
+<img height="250" align="left" src="https://s3.amazonaws.com/media-p.slid.es/uploads/hugojosefson/images/86267/angularjs-logo.png">
+
+<img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
+
 ## Why is grunt-init-angular awesome ?
 * Interactive way to scaffold your angular project to fit your needs. 
   Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions asked to you by `grunt-init-angular`
 * You assets dependencies are handled by [bower](http://www.bower.io)
 * Automatically run [ng-min](https://github.com/btford/ngmin) before your minification process
-* Do not handle manually one index.html for development and one inde.html for production thanks to [grunt-usemin](https://github.com/yeoman/grunt-usemin)
+* Do not handle manually one index.html for development and one index.html for production thanks to [grunt-usemin](https://github.com/yeoman/grunt-usemin)
   Automatically replace your scripts and stylesheets declaration by the minified version when packaging your app for production.
 * Watch for you assets changes to automatically run `jshint` or `csslint` on your code
 * Livereload is out of the box. No more F5
