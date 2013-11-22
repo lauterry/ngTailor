@@ -100,7 +100,18 @@ exports.template = function(grunt, init, done) {
                 "grunt-contrib-connect": "~0.5.0",
                 "load-grunt-tasks": "~0.2.0",
                 "grunt-bower-install": "~0.6.1",
-                "grunt-rev": "~0.1.0"
+                "grunt-rev": "~0.1.0",
+                "grunt-karma": "~0.6.2",
+                "karma-ng-html2js-preprocessor": "~0.1.0",
+                "karma-ng-scenario": "~0.1.0",
+//                "karma-script-launcher": "~0.1.0",
+                "karma-chrome-launcher": "~0.1.0",
+                "karma-firefox-launcher": "~0.1.0",
+                "karma-jasmine": "~0.1.3",
+//                "karma-requirejs": "~0.1.0",
+//                "karma-coffee-preprocessor": "~0.1.0",
+                "karma-phantomjs-launcher": "~0.1.0",
+                "karma": "~0.10.4"
             }
         };
 
@@ -118,6 +129,9 @@ exports.template = function(grunt, init, done) {
             dependencies: {
                 "angular": "~" + props.angular_version,
                 "angular-route": "~" + props.angular_version
+            },
+            "devDependencies" : {
+                "angular-mocks": "~" + props.angular_version
             }
         };
 

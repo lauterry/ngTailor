@@ -101,6 +101,19 @@ module.exports = function(grunt) {
                     open: true
                 }
             }
+        },
+        karma: {
+            unit: {
+                options: {
+                    configFile: 'test/conf/unit-test-conf.js',
+                        background: true  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
+                }
+            },
+            e2e: {
+                options: {
+                    configFile: 'test/conf/e2e-test-conf.js'
+                }
+            }
         }
     });
 
@@ -110,6 +123,7 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
+    grunt.registerTask('dev', ['karma:unit:start', 'watch']);
     grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
 
 };
