@@ -5,7 +5,7 @@ module.exports = function (config) {
         files: ['../e2e/**/*.js'],
         urlRoot: '/_karma_/',
         proxies: {
-            '/': 'http://localhost:3001/'
+            '/': 'http://localhost:8888/'
         },
         autoWatch: false,
         singleRun: true,
