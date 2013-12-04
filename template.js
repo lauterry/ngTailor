@@ -98,6 +98,7 @@ exports.template = function(grunt, init, done) {
                 "grunt-contrib-copy": "~0.4.1",
                 "grunt-contrib-jshint": "~0.7.2",
                 "grunt-contrib-connect": "~0.5.0",
+                "grunt-contrib-csslint": "~0.2.0",
                 "load-grunt-tasks": "~0.2.0",
                 "grunt-bower-install": "~0.6.1",
                 "grunt-rev": "~0.1.0",
