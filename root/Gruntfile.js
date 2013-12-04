@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    grunt.registerTask('dev', ['karma:unit:start', 'watch']);
+    grunt.registerTask('server', ['connect', 'karma:unit:start', 'watch']);
     grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
 
 };
