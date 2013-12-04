@@ -15,14 +15,14 @@ exports.notes = 'Note that most templates generate their files in the current di
 
 // Template-specific notes to be displayed after question prompts.
 exports.after = 'You should now install project dependencies with _npm '.cyan +
-    'install_ and _bower install_. After that, you may execute project tasks with _grunt_. For '.cyan +
-    'more information about installing and configuring Grunt, please see '.cyan +
+    'install_ then _bower install_ and _grunt bower-install_. After that, you may execute project tasks with _grunt_. For '.cyan +
+    'more information about grunt-init-angular, please see '.cyan +
     'the Getting Started guide:'.cyan +
     '\n\n' +
-    'http://gruntjs.com/getting-started'.cyan;
+    'https://github.com/lauterry/grunt-init-angular/blob/master/README.md'.cyan;
 
 // Any existing file or directory matching this wildcard will cause a warning.
-exports.warnOn = '';
+exports.warnOn = '*';
 
 // The actual init template.
 exports.template = function(grunt, init, done) {
