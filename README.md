@@ -32,15 +32,16 @@ Scaffold an Angular project fitted to your needs using modern Front End tooling.
 1. Create a new folder for your project
 2. Open a terminal and run `grunt-init angular` in your project folder
 3. Answer the questions prompted to you to scaffold your project to your needs
-4. Run npm `npm install && bower install && grunt bower-install` to download your projet dependencies
-5. Run `grunt connect` to serve your static assets and open [http://localhost:8888](http://localhost:8888)
-6. Your should see **2** displayed in your browser
-7.  Voilà ! Your Angular project is ready !
+4. Run `npm install && bower install && grunt bower-install` to download your projet dependencies
+5. Run `grunt server` to serve your static assets and open [http://localhost:8888](http://localhost:8888)
+6. Your should see "Yeahhh ! You're ready !" displayed in your browser
+7. Voilà ! Your Angular project is ready !
 
 ## Developement
-1. Run `grunt connect` to start a static web server. Open [http://localhost:8888](http://localhost:8888).
+1. Run `grunt server` to start a static web server. Open [http://localhost:8888](http://localhost:8888).
    Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
-2. Run `grunt watch` to run `jshint` and `csslint` on your file when they change
+   Also, `jshint` and/or `csslint` will be run on your files when they change
+   If you choose to have unit tests, they will be run as your test and source file change.
 
 ## Package for Production
 * Run `grunt` to prepare your static assets for production. Your package will be generated in a `dist` folder
