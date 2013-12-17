@@ -1,4 +1,4 @@
-grunt-init-angular
+grunt-init-angular [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ==================
 
 Scaffold an Angular project fitted to your needs using modern Front End tooling.
