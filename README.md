@@ -38,7 +38,7 @@ Scaffold an Angular project fitted to your needs using modern Front End tooling.
 7. Voilà ! Your Angular project is ready !
 
 ## Developement
-1. Run `grunt server` to start a static web server. Open [http://localhost:8888](http://localhost:8888).
+* Run `grunt server` to start a static web server. Open [http://localhost:8888](http://localhost:8888).
    Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
    Also, `jshint` and/or `csslint` will be run on your files when they change
    If you choose to have unit tests, they will be run as your test and source file change.
