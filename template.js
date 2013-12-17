@@ -8,7 +8,7 @@
 'use strict';
 
 // Basic template description.
-exports.description = 'Create an AngularJS project, including tests, with Grunt and Bower';
+exports.description = 'Scaffold out an AngularJS application, writing your Grunt and Bower configurations will all you choose that you need';
 
 // Template-specific notes to be displayed before question prompts.
 exports.notes = 'Note that most templates generate their files in the current directory, so be sure to change to a new directory first if you don\'t want to overwrite existing files.'.cyan;
@@ -27,11 +27,15 @@ exports.warnOn = '*';
 // The actual init template.
 exports.template = function(grunt, init, done) {
 
+    var path = require('path');
+    var _s = require('underscore.string');
+    var currentWorkingDirectory = process.cwd().split(path.sep).pop();
+
     init.process({}, [
-        init.prompt('name', 'MyAngularApp'),
-        init.prompt('title', 'My Angular App'),
+        init.prompt('name', currentWorkingDirectory),
+        init.prompt('title', _s.humanize(currentWorkingDirectory)),
         init.prompt('version', '0.0.1'),
-        init.prompt('description', 'The best angular web app ever'),
+        init.prompt('description', 'The best angular app ever !'),
         {
             name : 'angular_version',
             message : 'Which version of angular do you want to use ?'.blue,
@@ -57,6 +61,11 @@ exports.template = function(grunt, init, done) {
             name : 'revision',
             message : 'Add revision hash in your assets name for caching purpose ?  app.js becomes 8664d46sf64.app.js'.blue,
             default : 'y/N'
+        },
+        {
+            name : 'test',
+            message : 'Settle tests with Karma and Jasmine ?'.blue,
+            default : 'y/N'
         }
     ], function(err, props) {
 
@@ -73,6 +82,8 @@ exports.template = function(grunt, init, done) {
         }
 
         props['csslint'] = !/n/i.test(props.csslint);
+
+        props['test'] = !/n/i.test(props.test);
 
         props['revision'] = !/n/i.test(props.revision);
 
@@ -98,23 +109,29 @@ exports.template = function(grunt, init, done) {
                 "grunt-contrib-copy": "~0.4.1",
                 "grunt-contrib-jshint": "~0.7.2",
                 "grunt-contrib-connect": "~0.5.0",
-                "grunt-contrib-csslint": "~0.2.0",
                 "load-grunt-tasks": "~0.2.0",
-                "grunt-bower-install": "~0.6.1",
-                "grunt-rev": "~0.1.0",
-                "grunt-karma": "~0.6.2",
-                "karma-ng-html2js-preprocessor": "~0.1.0",
-                "karma-ng-scenario": "~0.1.0",
-//                "karma-script-launcher": "~0.1.0",
-                "karma-chrome-launcher": "~0.1.0",
-                "karma-firefox-launcher": "~0.1.0",
-                "karma-jasmine": "~0.1.3",
-//                "karma-requirejs": "~0.1.0",
-//                "karma-coffee-preprocessor": "~0.1.0",
-                "karma-phantomjs-launcher": "~0.1.0",
-                "karma": "~0.10.4"
+                "grunt-bower-install": "~0.6.1"
             }
         };
+
+        if(props['test']){
+            packageContent.devDependencies['grunt-karma'] = "~0.6.2";
+            packageContent.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
+            packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
+            packageContent.devDependencies['karma-chrome-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma-firefox-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
+            packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma'] = "~0.10.4";
+        }
+
+        if(props['revision']){
+            packageContent.devDependencies['grunt-rev'] = "~0.1.0";
+        }
+
+        if(props['csslint']){
+            packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
+        }
 
         init.writePackageJSON('package.json', packageContent);
 

@@ -1,2 +1,4 @@
 .idea/
 grunt-init-angular.iml
+.DS_Store
+node_modules

@@ -72,7 +72,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
-                tasks: ['jshint', 'karma:unit:run']
+                tasks: ['jshint' {% if (test) { %}, 'karma:unit:run' {% } %}]
             },
             html : {
                 files: ['<%= assetsDir %>/**/*.html']
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                     open: true
                 }
             }
-        },
+        } {% if (test) { %},
         karma: {
             unit: {
                 options: {
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     configFile: 'test/conf/e2e-test-conf.js'
                 }
             }
-        }
+        } {% } %}
     });
 
     // on watch events configure jshint:all to only run on changed file
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    grunt.registerTask('server', ['connect', 'karma:unit:start', 'watch']);
+    grunt.registerTask('server', ['connect', {% if (test) { %} 'karma:unit:start', {% } %} 'watch']);
     grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
 
 };
