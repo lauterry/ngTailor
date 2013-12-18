@@ -35,17 +35,16 @@
 
 <ul>
 <li>Interactive way to scaffold your angular project to fit your needs. 
-Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions asked to you by <code>grunt-init-angular</code>
-</li>
-<li>You assets dependencies are handled by <a href="http://www.bower.io">bower</a>
+Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.</li>
+<li>You assets dependencies are managed by <a href="http://www.bower.io">bower</a>
 </li>
 <li>Automatically run <a href="https://github.com/btford/ngmin">ng-min</a> before your minification process</li>
 <li>Do not handle manually one index.html for development and one index.html for production thanks to <a href="https://github.com/yeoman/grunt-usemin">grunt-usemin</a>.
 Automatically replace your scripts and stylesheets declaration with the minified version when packaging your app for production.</li>
-<li>Watch for you assets changes to automatically run <code>jshint</code> or <code>csslint</code> on your code</li>
-<li>Livereload is out of the box. No more F5</li>
+<li>Watch for you assets changes and automatically run <code>jshint</code> or <code>csslint</code> on your code and even unit tests.</li>
+<li>Livereload is out of the box. No F5 anymore</li>
 <li>Automatically output a hash in your assets file name for caching purpose.</li>
-<li>Set up tests to be run with Karma with Jasmine</li>
+<li>Set up tests to be run with Karma with Jasmine.</li>
 </ul><h2>
 <a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
 
@@ -68,23 +67,26 @@ by running <code>git clone https://github.com/lauterry/grunt-init-angular.git ~/
 <li>Open a terminal and run <code>grunt-init angular</code> in your project folder</li>
 <li>Answer the questions prompted to you to scaffold your project to your needs</li>
 <li>Run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies</li>
-<li>Run <code>grunt server</code> to serve your static assets and open <a href="http://localhost:8888">http://localhost:8888</a>
+<li>Run <code>grunt server</code> to serve your static assets at <a href="http://localhost:8888">http://localhost:8888</a>
 </li>
 <li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
 <li>Voilà ! Your Angular project is ready !</li>
 </ol><h2>
 <a name="developement" class="anchor" href="#developement"><span class="octicon octicon-link"></span></a>Developement</h2>
 
-<p>Run <code>grunt server</code> to start a static web server. Open <a href="http://localhost:8888">http://localhost:8888</a>.
-   Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
-   Also, <code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.
-   If you choose to have unit tests, they will be run as your test and source files change.</p>
-
-<h2>
+<ul>
+<li>Run <code>grunt server</code> to start a static web server and open your browser at <a href="http://localhost:8888">http://localhost:8888</a>. </li>
+<li>Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.</li>
+<li>
+<code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.</li>
+<li>If you choose to have unit tests, they will be run as your test and source files change.</li>
+</ul><h2>
 <a name="package-for-production" class="anchor" href="#package-for-production"><span class="octicon octicon-link"></span></a>Package for Production</h2>
 
-<p>Run <code>grunt</code> to prepare your static assets for production. Your package will be generated in a <code>dist</code> folder
-   Your javascript and css files will be concatenated, minified and versionned.</p>
+<ul>
+<li>Run <code>grunt</code> to prepare your static assets for production. </li>
+<li>Your package will be generated in a <code>dist</code> folder and your javascripts and stylesheets will be concatenated, minified and versionned.</li>
+</ul>
         </section>
 
         <aside id="sidebar">
