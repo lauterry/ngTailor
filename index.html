@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>grunt-init-angular by lauterry</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>grunt-init-angular</h1>
+        <h2>Scaffold an Angular project with Grunt and Bower configurations fitted to your needs</h2>
+        <a href="https://github.com/lauterry/grunt-init-angular" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="http://gruntjs.com/"><img src="https://cdn.gruntjs.com/builtwith.png" alt="Built with Grunt"></a></p>
+
+<h2>
+<a name="why-is-grunt-init-angular-awesome-" class="anchor" href="#why-is-grunt-init-angular-awesome-"><span class="octicon octicon-link"></span></a>Why is grunt-init-angular awesome ?</h2>
+
+<ul>
+<li>Interactive way to scaffold your angular project to fit your needs. 
+Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions asked to you by <code>grunt-init-angular</code>
+</li>
+<li>You assets dependencies are handled by <a href="http://www.bower.io">bower</a>
+</li>
+<li>Automatically run <a href="https://github.com/btford/ngmin">ng-min</a> before your minification process</li>
+<li>Do not handle manually one index.html for development and one index.html for production thanks to <a href="https://github.com/yeoman/grunt-usemin">grunt-usemin</a>.
+Automatically replace your scripts and stylesheets declaration with the minified version when packaging your app for production.</li>
+<li>Watch for you assets changes to automatically run <code>jshint</code> or <code>csslint</code> on your code</li>
+<li>Livereload is out of the box. No more F5</li>
+<li>Automatically output a hash in your assets file name for caching purpose.</li>
+<li>Set up tests to be run with Karma with Jasmine</li>
+</ul><h2>
+<a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
+
+<ol>
+<li>Install <a href="http://www.nodejs.org">node and npm</a>
+</li>
+<li>Install <strong>Grunt</strong> running <code>npm install -g grunt-cli</code> </li>
+<li>Install <strong>Bower</strong> running <code>npm install -g bower</code>
+</li>
+<li>Install <strong>grunt-init</strong> running <code>npm install -g grunt-init</code>
+</li>
+<li>Install this template in your <code>~/.grunt-init/</code> directory (<code>%USERPROFILE%\.grunt-init\</code> on Windows) 
+by running <code>git clone https://github.com/lauterry/grunt-init-angular.git ~/.grunt-init/angular</code>
+</li>
+</ol><h2>
+<a name="generate-your-angular-project" class="anchor" href="#generate-your-angular-project"><span class="octicon octicon-link"></span></a>Generate your Angular project</h2>
+
+<ol>
+<li>Create a new folder for your project</li>
+<li>Open a terminal and run <code>grunt-init angular</code> in your project folder</li>
+<li>Answer the questions prompted to you to scaffold your project to your needs</li>
+<li>Run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies</li>
+<li>Run <code>grunt server</code> to serve your static assets and open <a href="http://localhost:8888">http://localhost:8888</a>
+</li>
+<li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
+<li>Voilà ! Your Angular project is ready !</li>
+</ol><h2>
+<a name="developement" class="anchor" href="#developement"><span class="octicon octicon-link"></span></a>Developement</h2>
+
+<p>Run <code>grunt server</code> to start a static web server. Open <a href="http://localhost:8888">http://localhost:8888</a>.
+   Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
+   Also, <code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.
+   If you choose to have unit tests, they will be run as your test and source files change.</p>
+
+<h2>
+<a name="package-for-production" class="anchor" href="#package-for-production"><span class="octicon octicon-link"></span></a>Package for Production</h2>
+
+<p>Run <code>grunt</code> to prepare your static assets for production. Your package will be generated in a <code>dist</code> folder
+   Your javascript and css files will be concatenated, minified and versionned.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/lauterry/grunt-init-angular/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/lauterry/grunt-init-angular/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/lauterry/grunt-init-angular"></a> is maintained by <a href="https://github.com/lauterry">lauterry</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-46551712-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
