@@ -9,7 +9,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 
 <img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
 
-## Why is grunt-init-angular awesome ?
+## Why is ngTailor awesome ?
 * Interactive way to scaffold your angular project to fit your needs. 
   Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.
 * Your assets dependencies are managed by [bower](http://www.bower.io)
