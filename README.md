@@ -12,7 +12,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 ## Why is grunt-init-angular awesome ?
 * Interactive way to scaffold your angular project to fit your needs. 
   Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.
-* You assets dependencies are managed by [bower](http://www.bower.io)
+* Your assets dependencies are managed by [bower](http://www.bower.io)
 * Automatically run [ng-min](https://github.com/btford/ngmin) before your minification process
 * Do not handle manually one index.html for development and one index.html for production thanks to [grunt-usemin](https://github.com/yeoman/grunt-usemin).
   Automatically replace your scripts and stylesheets declaration with the minified version when packaging your app for production.
