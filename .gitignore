@@ -1,4 +1,3 @@
 .idea/
-grunt-init-angular.iml
+*.iml
 .DS_Store
-node_modules
