@@ -1,4 +1,4 @@
-grunt-init-angular [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+ngTailor [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ==================
 
 Scaffold an Angular project with Grunt and Bower configurations fitted to your needs.
@@ -27,7 +27,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 3. Install **Bower** running `npm install -g bower`
 4. Install **grunt-init** running `npm install -g grunt-init`
 5. Install this template in your `~/.grunt-init/` directory (`%USERPROFILE%\.grunt-init\` on Windows) 
-   by running `git clone https://github.com/lauterry/grunt-init-angular.git ~/.grunt-init/angular`
+   by running `git clone https://github.com/lauterry/ngTailor.git ~/.grunt-init/angular`
 
 ## Generate your Angular project
 1. Create a new folder for your project
