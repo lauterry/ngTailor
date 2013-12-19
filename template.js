@@ -45,9 +45,6 @@ exports.template = function(grunt, init, done) {
         if(props['interactiveMode']){
             prompts = [
                 init.prompt('name', currentWorkingDirectory),
-                init.prompt('title', _s.humanize(currentWorkingDirectory)),
-                init.prompt('version', '0.0.1'),
-                init.prompt('description', 'The best angular app ever !'),
                 {
                     name : 'angular_version',
                     message : 'Which version of angular do you want to use ?'.blue,
@@ -71,12 +68,17 @@ exports.template = function(grunt, init, done) {
                 },
                 {
                     name : 'revision',
-                    message : 'Add revision hash in your assets name for caching purpose ?  app.js becomes 8664d46sf64.app.js'.blue,
+                    message : 'Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)'.blue,
                     default : 'y/N'
                 },
                 {
                     name : 'test',
-                    message : 'Settle tests with Karma and Jasmine ?'.blue,
+                    message : 'Set up tests with Karma and Jasmine ?'.blue,
+                    default : 'y/N'
+                },
+                {
+                    name : 'complexity',
+                    message : 'JavaScript source code visualization, static analysis, and complexity tool ?'.blue,
                     default : 'y/N'
                 }
             ];
@@ -84,8 +86,6 @@ exports.template = function(grunt, init, done) {
             prompts = [
                 init.prompt('name', currentWorkingDirectory),
                 init.prompt('title', _s.humanize(currentWorkingDirectory)),
-                init.prompt('version', '0.0.1'),
-                init.prompt('description', 'The best angular app ever !'),
                 {
                     name : 'angular_version',
                     message : 'Which version of angular do you want to use ?'.blue,
@@ -111,9 +111,13 @@ exports.template = function(grunt, init, done) {
 
             props['csslint'] = !/n/i.test(props.csslint);
 
+            props['title'] = _s.humanize(currentWorkingDirectory);
+
             props['test'] = !/n/i.test(props.test);
 
             props['revision'] = !/n/i.test(props.revision);
+
+            props['complexity'] = !/n/i.test(props.complexity);
 
             if (!props['test']) {
                 delete files['test'];
@@ -167,6 +171,10 @@ exports.template = function(grunt, init, done) {
 
             if(props['csslint']){
                 packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
+            }
+
+            if(props['complexity']){
+                packageContent.devDependencies['grunt-plato'] = "~0.2.1";
             }
 
             init.writePackageJSON('package.json', packageContent);

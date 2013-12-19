@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                     open: true
                 }
             }
-        } {% if (test) { %},
+        }, {% if (test) { %}
         karma: {
             unit: {
                 options: {
@@ -114,7 +114,20 @@ module.exports = function(grunt) {
                     configFile: 'test/conf/e2e-test-conf.js'
                 }
             }
-        } {% } %}
+        }, {% } %}
+        {% if (complexity) { %}
+        plato : {
+            options: {
+                jshint : grunt.file.readJSON('.jshintrc'),
+                    title : '{%= title %}'
+            },
+            all : {
+                files: {
+                    'reports': ['<%= assetsDir %>/js/**/*.js']
+                }
+            }
+        }
+        {% } %}
     });
 
     // on watch events configure jshint:all to only run on changed file
@@ -124,6 +137,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('server', ['connect', {% if (test) { %} 'karma:unit:start', {% } %} 'watch']);
+    {% if (complexity) { %}grunt.registerTask('report', ['plato']);{% } %}
     grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
 
 };
