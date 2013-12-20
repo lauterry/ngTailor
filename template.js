@@ -163,6 +163,7 @@ exports.template = function(grunt, init, done) {
                 packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
                 packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
                 packageContent.devDependencies['karma'] = "~0.10.4";
+                packageContent.devDependencies['karma-coverage'] = "~0.1.4";
             }
 
             if(props['revision']){

@@ -31,7 +31,12 @@ module.exports = function (config) {
 
             // test results reporter to use
             // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-            reporters: ['progress'],
+            reporters: ['progress', 'coverage'],
+
+            coverageReporter : {
+                type : 'html',
+                dir : '../reports/coverage'
+            },
 
 
             // web server port
@@ -66,11 +71,13 @@ module.exports = function (config) {
             captureTimeout: 60000,
 
             preprocessors: {
-                '**/*.html': ['ng-html2js']
+                '**/*.html': ['ng-html2js'],
+                '**/js/*.js': ['coverage']
             },
 
             plugins: [
                 'karma-jasmine',
+                'karma-coverage',
                 'karma-ng-html2js-preprocessor',
                 'karma-chrome-launcher',
                 'karma-firefox-launcher'

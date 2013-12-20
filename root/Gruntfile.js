@@ -123,7 +123,7 @@ module.exports = function(grunt) {
             },
             all : {
                 files: {
-                    'reports': ['<%= assetsDir %>/js/**/*.js']
+                    'reports/complexity': ['<%= assetsDir %>/js/**/*.js']
                 }
             }
         }
