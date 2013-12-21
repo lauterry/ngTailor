@@ -31,7 +31,7 @@
           <p><a href="http://gruntjs.com/"><img src="https://cdn.gruntjs.com/builtwith.png" alt="Built with Grunt"></a></p>
 
 <h2>
-<a name="why-is-ngtailor-awesome-" class="anchor" href="#why-is-ngtailor-awesome-"><span class="octicon octicon-link"></span></a>Why is ngTailor awesome ?</h2>
+<a name="why-is-ngtailor-interesting-" class="anchor" href="#why-is-ngtailor-interesting-"><span class="octicon octicon-link"></span></a>Why is ngTailor interesting ?</h2>
 
 <ul>
 <li>Interactive way to scaffold your angular project to fit your needs. 
@@ -44,7 +44,7 @@ Automatically replace your scripts and stylesheets declaration with the minified
 <li>Watch for you assets changes and automatically run <code>jshint</code> or <code>csslint</code> on your code and even unit tests.</li>
 <li>Livereload is out of the box. No F5 anymore</li>
 <li>Automatically output a hash in your assets file name for caching purpose.</li>
-<li>Set up tests to be run with Karma with Jasmine.</li>
+<li>Set up tests to be run with Karma with Jasmine and generate test coverage report.</li>
 </ul><h2>
 <a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
 
@@ -84,8 +84,9 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <a name="package-for-production" class="anchor" href="#package-for-production"><span class="octicon octicon-link"></span></a>Package for Production</h2>
 
 <ul>
-<li>Run <code>grunt</code> to prepare your static assets for production. </li>
+<li>Run <code>grunt package</code> to package your static assets for production.</li>
 <li>Your package will be generated in a <code>dist</code> folder and your javascripts and stylesheets will be concatenated, minified and versionned.</li>
+<li>Run <code>grunt</code> to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.</li>
 </ul>
         </section>
 
