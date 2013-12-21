@@ -28,21 +28,22 @@ exports.warnOn = '*';
 exports.template = function(grunt, init, done) {
 
     var prompts;
+    var inquirer = require("inquirer");
     var path = require('path');
     var _s = require('underscore.string');
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
 
-    init.process({}, [
-        {
-            name : 'interactiveMode',
-            message : 'Do you want to custom your project ? Otherwise, I will scaffold a basic project ready to go !'.blue,
-            default : 'y/N'
-        }
-    ] , function(err, props) {
 
-        props['interactiveMode'] = !/n/i.test(props.interactiveMode);
+    inquirer.prompt([{
+        type: "confirm",
+        name: "interactiveMode",
+        message: "Do you want to custom your project ? Otherwise, I will scaffold a basic project ready to go !".blue,
+        default: false
+    }], function( answers ) {
 
-        if(props['interactiveMode']){
+        var interactiveMode = answers.interactiveMode;
+
+        if(interactiveMode){
             prompts = [
                 init.prompt('name', currentWorkingDirectory),
                 {
@@ -85,7 +86,6 @@ exports.template = function(grunt, init, done) {
         } else {
             prompts = [
                 init.prompt('name', currentWorkingDirectory),
-                init.prompt('title', _s.humanize(currentWorkingDirectory)),
                 {
                     name : 'angular_version',
                     message : 'Which version of angular do you want to use ?'.blue,
@@ -206,8 +206,7 @@ exports.template = function(grunt, init, done) {
 
             done();
         });
+
     });
-
-
 
 };
