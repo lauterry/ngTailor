@@ -33,15 +33,8 @@ module.exports = function (config) {
             // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
             reporters: ['progress', 'coverage'],
 
-            coverageReporter : {
-                type : 'html',
-                dir : '../reports/coverage'
-            },
-
-
             // web server port
             port: 9876,
-
 
             // enable / disable colors in the output (reporters and logs)
             colors: true,
@@ -64,7 +57,7 @@ module.exports = function (config) {
             // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
             // - PhantomJS
             // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-            browsers: ['Chrome', 'Firefox'],
+            browsers: ['Chrome'],
 
 
             // If browser does not capture in given timeout [ms], kill it

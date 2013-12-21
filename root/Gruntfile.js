@@ -72,7 +72,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
-                tasks: ['jshint' {% if (test) { %}, 'karma:unit:run' {% } %}]
+                tasks: ['jshint' {% if (test) { %}, 'karma:dev_unit:run' {% } %}]
             },
             html : {
                 files: ['<%= assetsDir %>/**/*.html']
@@ -92,26 +92,57 @@ module.exports = function(grunt) {
             }
         }, {% } %}
         connect: {
-            server: {
+            dev_server: {
                 options: {
                     port: 8888,
-                    base: '<%= assetsDir %>',
-                    keepalive: false,
-                    livereload: true,
-                    open: true
+                        base: '<%= assetsDir %>',
+                        keepalive: false,
+                        livereload: true,
+                        open: true
+                }
+            },
+            dist_server : {
+                options: {
+                    port: 8887,
+                        base: '<%= assetsDir %>',
+                        keepalive: false,
+                        livereload: false,
+                        open: false
+                }
+            },
+            plato : {
+                options: {
+                    port: 8889,
+                        base: 'reports/complexity',
+                        keepalive: true,
+                        open: true
                 }
             }
         }, {% if (test) { %}
         karma: {
-            unit: {
+            dev_unit: {
                 options: {
                     configFile: 'test/conf/unit-test-conf.js',
-                        background: true  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
+                        background: true,  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
+                        singleRun: false,
+                        autoWatch: true
                 }
             },
             e2e: {
                 options: {
                     configFile: 'test/conf/e2e-test-conf.js'
+                }
+            },
+            dist_unit: {
+                options: {
+                    configFile: 'test/conf/unit-test-conf.js',
+                        background: false,
+                        singleRun: true,
+                        autoWatch: false,
+                        coverageReporter : {
+                        type : 'html',
+                            dir : '../reports/coverage'
+                    }
                 }
             }
         }, {% } %}
@@ -136,8 +167,12 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    grunt.registerTask('server', ['connect', {% if (test) { %} 'karma:unit:start', {% } %} 'watch']);
-    {% if (complexity) { %}grunt.registerTask('report', ['plato']);{% } %}
-    grunt.registerTask('default', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', {% if(revision){%}'rev', {%}%} 'usemin' ]);
+    grunt.registerTask('dev', ['connect:dev_server', {% if (test) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
+    {% if (test) { %}grunt.registerTask('e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
+    {% if (test) { %}grunt.registerTask('unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
+    {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
+    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin', 'rev',  'usemin']);
+    grunt.registerTask('default', ['package',  {% if (test) { %} 'connect:dist_server', 'karma:dist_unit:start', 'karma:e2e',{% } %} 'plato']);
+
 
 };

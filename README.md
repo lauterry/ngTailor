@@ -19,7 +19,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 * Watch for you assets changes and automatically run `jshint` or `csslint` on your code and even unit tests.
 * Livereload is out of the box. No F5 anymore
 * Automatically output a hash in your assets file name for caching purpose.
-* Set up tests to be run with Karma with Jasmine.
+* Set up tests to be run with Karma with Jasmine and generate test coverage report.
 
 ## Prerequisites
 1. Install [node and npm](http://www.nodejs.org)
@@ -45,5 +45,6 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 * If you choose to have unit tests, they will be run as your test and source files change.
 
 ## Package for Production
-* Run `grunt` to prepare your static assets for production. 
+* Run `grunt package` to package your static assets for production.
 * Your package will be generated in a `dist` folder and your javascripts and stylesheets will be concatenated, minified and versionned.
+* Run `grunt` to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.

@@ -5,13 +5,13 @@ module.exports = function (config) {
         files: ['../e2e/**/*.js'],
         urlRoot: '/_karma_/',
         proxies: {
-            '/': 'http://localhost:8888/'
+            '/': 'http://localhost:8887/'
         },
         autoWatch: false,
         singleRun: true,
         colors: true,
         logLevel: config.LOG_INFO,
         reporters: ['progress'],
-        browsers: ['Chrome', 'Firefox']
+        browsers: ['Chrome']
     });
 };
