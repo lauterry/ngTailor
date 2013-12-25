@@ -11,7 +11,14 @@
 exports.description = 'Scaffold out an AngularJS application, writing your Grunt and Bower configurations with everything you need';
 
 // Template-specific notes to be displayed before question prompts.
-exports.notes = 'Note that most templates generate their files in the current directory, so be sure to change to a new directory first if you don\'t want to overwrite existing files.'.cyan;
+exports.notes =
+    '° _Normal mode_ : Generate me an angularjs project with the minimal options.'.cyan +
+    '\n' +
+    '° _Advanced mode_ : Let me customize my scaffolding and add more features.'.cyan +
+    '\n\n' +
+    'Note that most templates generate their files in the current directory, '.cyan +
+    'so be sure to change to a new directory first if you don\'t want to overwrite existing files.'.cyan +
+    '\n\n';
 
 // Template-specific notes to be displayed after question prompts.
 exports.after = 'You should now install project dependencies with _npm '.cyan +
@@ -19,193 +26,206 @@ exports.after = 'You should now install project dependencies with _npm '.cyan +
     'more information about grunt-init-angular, please see '.cyan +
     'the Getting Started guide:'.cyan +
     '\n\n' +
-    'https://github.com/lauterry/grunt-init-angular/blob/master/README.md'.cyan;
+    'https://github.com/lauterry/ngTailor/blob/master/README.md'.cyan;
 
 // Any existing file or directory matching this wildcard will cause a warning.
-exports.warnOn = '*';
+exports.warnOn = '';
 
 // The actual init template.
 exports.template = function(grunt, init, done) {
 
-    var prompts;
     var inquirer = require("inquirer");
+    var semver = require("semver");
     var path = require('path');
     var _s = require('underscore.string');
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
 
+    var options = {
+        name : currentWorkingDirectory,
+        angular_version : '*',
+        version : '0.0.1',
+        description : '',
+        csslint : false,
+        complexity : false,
+        test : false,
+        revision : false,
+        gitignore : false,
+        i18n : false
+    };
 
-    inquirer.prompt([{
-        type: "confirm",
-        name: "interactiveMode",
-        message: "Do you want to custom your project ? Otherwise, I will scaffold a basic project ready to go !".blue,
-        default: false
-    }], function( answers ) {
 
-        var interactiveMode = answers.interactiveMode;
+    function gruntInit(options) {
+        var bowerContent,
+            packageContent,
+            files;
 
-        if(interactiveMode){
-            prompts = [
-                init.prompt('name', currentWorkingDirectory),
-                {
-                    name : 'angular_version',
-                    message : 'Which version of angular do you want to use ?'.blue,
-                    default : '1.2.0',
-                    warning : 'Must be a valid semantic version (semver.org)'
-                },
-                {
-                    name : 'i18n',
-                    message : 'Need angular-i18n locales ?'.blue,
-                    default : 'y/N'
-                },
-                {
-                    name : 'gitignore',
-                    message : 'Add .gitignore ?'.blue,
-                    default : 'y/N'
-                },
-                {
-                    name : 'csslint',
-                    message : 'Lint your CSS ?'.blue,
-                    default : 'y/N'
-                },
-                {
-                    name : 'revision',
-                    message : 'Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)'.blue,
-                    default : 'y/N'
-                },
-                {
-                    name : 'test',
-                    message : 'Set up tests with Karma and Jasmine ?'.blue,
-                    default : 'y/N'
-                },
-                {
-                    name : 'complexity',
-                    message : 'JavaScript source code visualization, static analysis, and complexity tool ?'.blue,
-                    default : 'y/N'
-                }
-            ];
-        } else {
-            prompts = [
-                init.prompt('name', currentWorkingDirectory),
-                {
-                    name : 'angular_version',
-                    message : 'Which version of angular do you want to use ?'.blue,
-                    default : '1.2.0',
-                    warning : 'Must be a valid semantic version (semver.org)'
-                }
-            ];
+        options.title = _s.humanize(options.name);
+
+        files = init.filesToCopy(options);
+
+        if (options.gitignore) {
+            delete files['.gitignore'];
         }
 
-        init.process({}, prompts , function(err, props) {
+        if (!options.test) {
+            delete files['test'];
+            delete files['test/conf/e2e-test-conf.js'];
+            delete files['test/conf/unit-test-conf.js'];
+            delete files['test/e2e/scenarios.js'];
+            delete files['test/unit/appSpec.js'];
+            delete files['test/.jshintrc'];
+        }
 
-            var bowerContent,
-                packageContent,
-                files = init.filesToCopy(props);
+        init.copyAndProcess(files, options, {noProcess: '.gitignore'});
 
-            /***************************
-             * PROCESS AND COPY FILES  *
-             ***************************/
+        /**************************
+         *  GENERATE PACKAGE.JSON *
+         **************************/
 
-            if(/n/i.test(props.gitignore)){
-                delete files['.gitignore'];
+        packageContent = {
+            name: options.name,
+            version: options.version,
+            description: options.description,
+            devDependencies: {
+                "grunt-usemin": "~2.0.0",
+                "grunt-ngmin": "0.0.3",
+                "grunt-contrib-clean": "~0.5.0",
+                "grunt-contrib-concat": "~0.3.0",
+                "grunt-contrib-uglify": "~0.2.7",
+                "grunt-contrib-cssmin": "~0.7.0",
+                "grunt-contrib-watch": "~0.5.3",
+                "grunt-bower-task": "~0.3.4",
+                "grunt-contrib-copy": "~0.4.1",
+                "grunt-contrib-jshint": "~0.7.2",
+                "grunt-contrib-connect": "~0.5.0",
+                "load-grunt-tasks": "~0.2.0",
+                "grunt-bower-install": "~0.6.1"
             }
+        };
 
-            props['csslint'] = !/n/i.test(props.csslint);
+        if (options.test === true) {
+            packageContent.devDependencies['grunt-karma'] = "~0.6.2";
+            packageContent.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
+            packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
+            packageContent.devDependencies['karma-chrome-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma-firefox-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
+            packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
+            packageContent.devDependencies['karma'] = "~0.10.4";
+            packageContent.devDependencies['karma-coverage'] = "~0.1.4";
+        }
 
-            props['title'] = _s.humanize(currentWorkingDirectory);
+        if (options.revision === true) {
+            packageContent.devDependencies['grunt-rev'] = "~0.1.0";
+        }
 
-            props['test'] = !/n/i.test(props.test);
+        if (options.csslint === true) {
+            packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
+        }
 
-            props['revision'] = !/n/i.test(props.revision);
+        if (options.complexity === true) {
+            packageContent.devDependencies['grunt-plato'] = "~0.2.1";
+        }
 
-            props['complexity'] = !/n/i.test(props.complexity);
+        init.writePackageJSON('package.json', packageContent);
 
-            if (!props['test']) {
-                delete files['test'];
-                delete files['test/conf/e2e-test-conf.js'];
-                delete files['test/conf/unit-test-conf.js'];
-                delete files['test/e2e/scenarios.js'];
-                delete files['test/unit/appSpec.js'];
+
+        /***********************
+         * GENERATE BOWER.JSON *
+         ***********************/
+
+        bowerContent = {
+            name: options.name,
+            version: options.version,
+            description: options.description,
+            dependencies: {
+                "angular": options.angular_version,
+                "angular-route": options.angular_version
+            },
+            "devDependencies": {
+                "angular-mocks": options.angular_version
             }
+        };
 
-            init.copyAndProcess(files, props, {noProcess: '.gitignore'});
+        if (options.i18n) {
+            bowerContent.dependencies['angular-i18n'] = options.angular_version;
+        }
 
-            /**************************
-             *  GENERATE PACKAGE.JSON *
-             **************************/
+        init.writePackageJSON('bower.json', bowerContent);
 
-            packageContent = {
-                name: props.name,
-                version: props.version,
-                description: props.description,
-                devDependencies: {
-                    "grunt-usemin": "~2.0.0",
-                    "grunt-ngmin": "0.0.3",
-                    "grunt-contrib-clean": "~0.5.0",
-                    "grunt-contrib-concat": "~0.3.0",
-                    "grunt-contrib-uglify": "~0.2.7",
-                    "grunt-contrib-cssmin": "~0.7.0",
-                    "grunt-contrib-watch": "~0.5.3",
-                    "grunt-bower-task": "~0.3.4",
-                    "grunt-contrib-copy": "~0.4.1",
-                    "grunt-contrib-jshint": "~0.7.2",
-                    "grunt-contrib-connect": "~0.5.0",
-                    "load-grunt-tasks": "~0.2.0",
-                    "grunt-bower-install": "~0.6.1"
+        done();
+    }
+
+    inquirer.prompt([{
+        type: "list",
+        name: "mode",
+        message: "Which mode do you want to run ?",
+        choices: ["Normal", "Advanced"]
+    }], function( answers ) {
+
+        var mode = answers.mode;
+
+        if(mode === "Advanced"){
+            inquirer.prompt([{
+                type: "input",
+                name: "name",
+                message: "Name your project",
+                default: currentWorkingDirectory
+            }, {
+                type: "input",
+                name: "angular_version",
+                message: "Version of angular",
+                validate: function( value ) {
+                    var valid = semver.validRange(value);
+                    if(valid === null){
+                        return "Please enter a valid semantic version (semver.org)";
+                    } else {
+                        return true;
+                    }
                 }
-            };
-
-            if(props['test']){
-                packageContent.devDependencies['grunt-karma'] = "~0.6.2";
-                packageContent.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
-                packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
-                packageContent.devDependencies['karma-chrome-launcher'] = "~0.1.0";
-                packageContent.devDependencies['karma-firefox-launcher'] = "~0.1.0";
-                packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
-                packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
-                packageContent.devDependencies['karma'] = "~0.10.4";
-                packageContent.devDependencies['karma-coverage'] = "~0.1.4";
-            }
-
-            if(props['revision']){
-                packageContent.devDependencies['grunt-rev'] = "~0.1.0";
-            }
-
-            if(props['csslint']){
-                packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
-            }
-
-            if(props['complexity']){
-                packageContent.devDependencies['grunt-plato'] = "~0.2.1";
-            }
-
-            init.writePackageJSON('package.json', packageContent);
-
-
-            /***********************
-             * GENERATE BOWER.JSON *
-             ***********************/
-
-            bowerContent =  {
-                name: props.name,
-                version: props.version,
-                description: props.description,
-                dependencies: {
-                    "angular": "~" + props.angular_version,
-                    "angular-route": "~" + props.angular_version
-                },
-                "devDependencies" : {
-                    "angular-mocks": "~" + props.angular_version
+            },{
+                type: "checkbox",
+                name: "modules",
+                message: "What angular module do you need ?",
+                choices: [ "i18n", "route", "resource", "animate", "cookies", "sanitize", "touch" ]
+            }, {
+                type: "confirm",
+                name: "test",
+                message: "Should I set up tests configuration ?",
+                default : false
+            }, {
+                type: "checkbox",
+                name: "tests",
+                message: "Which tests should I set up ?",
+                choices: [ "unit", "e2e" ],
+                when: function( answers ) {
+                    return answers.test === true;
                 }
-            };
+            }, {
+                type: "confirm",
+                name: "revision",
+                message: "Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)",
+                default : false
+            }, {
+                name : 'csslint',
+                message : 'Should I lint your CSS with CSSLint'.blue,
+                default : 'false'
+            }], function( answers ) {
 
-            if(!/n/i.test(props.i18n)){
-                bowerContent.dependencies['angular-i18n'] = "~" + props.angular_version;
-            }
+                for (var attr in answers) {
+                    if (answers.hasOwnProperty(attr)) {
+                        options[attr] = answers[attr];
+                    }
+                }
 
-            init.writePackageJSON('bower.json', bowerContent);
+                console.log(options);
 
-            done();
-        });
+            });
+        } else {
+            gruntInit(options);
+        }
+
+
 
     });
 
