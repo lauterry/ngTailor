@@ -59,15 +59,23 @@ exports.template = function(grunt, init, done) {
             packageContent,
             files;
 
+        /**************************
+         *       COPY FILES       *
+         **************************/
+
         options.title = _s.humanize(options.name);
 
         files = init.filesToCopy(options);
 
-        if (options.gitignore) {
+        if (!options.gitignore === true) {
             delete files['.gitignore'];
         }
 
-        if (!options.test) {
+        if (options.csslint === false) {
+            delete files['.csslintrc'];
+        }
+
+        if (!options.test === true) {
             delete files['test'];
             delete files['test/conf/e2e-test-conf.js'];
             delete files['test/conf/unit-test-conf.js'];
@@ -218,7 +226,7 @@ exports.template = function(grunt, init, done) {
                     }
                 }
 
-                console.log(options);
+                gruntInit(options);
 
             });
         } else {

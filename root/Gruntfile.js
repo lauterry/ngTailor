@@ -55,7 +55,7 @@ module.exports = function(grunt) {
             all : {
                 src : ['<%= assetsDir %>/js']
             }
-        }, {% if (revision) { %}
+        }{% if (revision) { %},
         rev: {
             dist: {
                 files: {
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
                     ]
                 }
             }
-        },  {% } %}
+        }{% } %},
         watch: {
             options: {
                 livereload: true
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
                 tasks: ['csslint']
                 {% } %}
             }
-        }, {% if (csslint) { %}
+        }{% if (csslint) { %},
         csslint: {
             options: {
                 csslintrc: '.csslintrc'
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
             all : {
                 src : ['<%= assetsDir %>/css/**/*.css']
             }
-        }, {% } %}
+        }{% } %},
         connect: {
             dev_server: {
                 options: {
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
                         livereload: false,
                         open: false
                 }
-            },
+            }{% if (complexity) { %},
             plato : {
                 options: {
                     port: 8889,
@@ -117,8 +117,8 @@ module.exports = function(grunt) {
                         keepalive: true,
                         open: true
                 }
-            }
-        }, {% if (test) { %}
+            }{% } %}
+        }{% if (test) { %},
         karma: {
             dev_unit: {
                 options: {
@@ -145,8 +145,8 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        }, {% } %}
-        {% if (complexity) { %}
+        }{% } %}
+        {% if (complexity) { %},
         plato : {
             options: {
                 jshint : grunt.file.readJSON('.jshintrc'),
@@ -172,7 +172,7 @@ module.exports = function(grunt) {
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
     grunt.registerTask('dev', ['connect:dev_server', {% if (test) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
-    grunt.registerTask('default', ['package' {% if (test) { %}, 'connect:dist_server', 'karma:dist_unit:start', 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
+    grunt.registerTask('default', ['package'{%if(test){%}, 'connect:dist_server', 'karma:dist_unit:start', 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 
 
 };
