@@ -9,7 +9,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 
 <img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
 
-## Why is ngTailor awesome ?
+## Why is ngTailor interesting ?
 * Interactive way to scaffold your angular project to fit your needs. 
   Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.
 * Your assets dependencies are managed by [bower](http://www.bower.io)
@@ -47,10 +47,9 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 ## Package for Production
 * Run `grunt package` to package your static assets for production.
 * Your package will be generated in a `dist` folder and your javascripts and stylesheets will be concatenated, minified and versionned.
-* Run `grunt` to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.
+* `grunt` : launch `grunt package`, run unit tests and e2e test and generate complexity report. Use this task for continuous integration.
 
 ## Available Grunt tasks
 * `grunt test:unit` : run karma unit tests and show test coverage in console.
 * `grunt test:e2e` : run karma e2e tests
 * `grunt report` : open complexity report in your browser
-* `grunt` : launch `grunt package`, run unit tests and e2e test and generate complexity reports. Use this task for continuous integration.
