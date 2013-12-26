@@ -45,6 +45,7 @@ Automatically replace your scripts and stylesheets declaration with the minified
 <li>Livereload is out of the box. No F5 anymore</li>
 <li>Automatically output a hash in your assets file name for caching purpose.</li>
 <li>Set up tests to be run with Karma with Jasmine and generate test coverage report.</li>
+<li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies</li>
 </ul><h2>
 <a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
 
@@ -66,8 +67,7 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <li>Create a new folder for your project</li>
 <li>Open a terminal and run <code>grunt-init angular</code> in your project folder</li>
 <li>Answer the questions prompted to you to scaffold your project to your needs</li>
-<li>Run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies</li>
-<li>Run <code>grunt server</code> to serve your static assets at <a href="http://localhost:8888">http://localhost:8888</a>
+<li>Run <code>grunt dev</code> to serve your static assets at <a href="http://localhost:8888">http://localhost:8888</a>
 </li>
 <li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
 <li>Voilà ! Your Angular project is ready !</li>
@@ -75,7 +75,7 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <a name="developement" class="anchor" href="#developement"><span class="octicon octicon-link"></span></a>Developement</h2>
 
 <ul>
-<li>Run <code>grunt server</code> to start a static web server and open your browser at <a href="http://localhost:8888">http://localhost:8888</a>. </li>
+<li>Run <code>grunt dev</code> to start a static web server and open your browser at <a href="http://localhost:8888">http://localhost:8888</a>.</li>
 <li>Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.</li>
 <li>
 <code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.</li>
@@ -87,6 +87,18 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <li>Run <code>grunt package</code> to package your static assets for production.</li>
 <li>Your package will be generated in a <code>dist</code> folder and your javascripts and stylesheets will be concatenated, minified and versionned.</li>
 <li>Run <code>grunt</code> to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.</li>
+</ul><h2>
+<a name="available-grunt-tasks" class="anchor" href="#available-grunt-tasks"><span class="octicon octicon-link"></span></a>Available Grunt tasks</h2>
+
+<ul>
+<li>
+<code>grunt test:unit</code> : run karma unit tests and show test coverage in console.</li>
+<li>
+<code>grunt test:e2e</code> : run karma e2e tests</li>
+<li>
+<code>grunt report</code> : open complexity report in your browser</li>
+<li>
+<code>grunt</code> : launch <code>grunt package</code>, run unit tests and e2e test and generate complexity reports. Use this task for continuous integration.</li>
 </ul>
         </section>
 
