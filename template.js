@@ -21,12 +21,16 @@ exports.notes =
     '\n\n';
 
 // Template-specific notes to be displayed after question prompts.
-exports.after = 'You should now install project dependencies with _npm '.cyan +
-    'install_ then _bower install_ and _grunt bower-install_. After that, you may execute project tasks with _grunt_. For '.cyan +
-    'more information about grunt-init-angular, please see '.cyan +
-    'the Getting Started guide:'.cyan +
-    '\n\n' +
-    'https://github.com/lauterry/ngTailor/blob/master/README.md'.cyan;
+exports.after = 'Your angular project has been successfully generated.'.green +
+    '\nAvailable grunt tasks are :'.cyan +
+    '\n' +
+    '° _grunt dev_ : start a static server'.cyan +
+    '\n' +
+    '° _grunt package_ : package your web app for distribution'.cyan +
+    '\n' +
+    'For more information about ngTailor, please see '.green +
+    '\n' +
+    'https://github.com/lauterry/ngTailor/blob/master/README.md'.green;
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '';
@@ -38,6 +42,8 @@ exports.template = function(grunt, init, done) {
     var semver = require("semver");
     var path = require('path');
     var _s = require('underscore.string');
+    var exec = require('child_process').exec,
+        child;
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
 
     var options = {
@@ -161,7 +167,47 @@ exports.template = function(grunt, init, done) {
 
         init.writePackageJSON('bower.json', bowerContent);
 
-        done();
+    }
+
+    function installDependencies() {
+        console.log('\n[1/3] Running npm install ...'.blue);
+
+        child = exec('npm install', function (error, stdout, stderr) {
+
+            if (error !== null) {
+
+                console.error(stderr);
+                console.error('Failed to run "npm install". \nPlease run "npm install && bower install && grunt bower-install" afterwards.\n'.red);
+
+            } else {
+
+                console.log('\n[2/3] Running bower install ...'.blue);
+                exec('bower install', function (error, stdout, stderr) {
+
+                    if (error !== null) {
+
+                        console.error(stderr);
+                        console.error('Failed to run "bower install". \nPlease run "bower install && grunt bower-install" afterwards.\n'.red);
+
+                    } else {
+
+                        console.log('\n[3/3] Running grunt bower-install ...'.blue);
+
+                        exec('grunt bower-install', function (error, stdout, stderr) {
+
+                            if (error !== null) {
+
+                                console.error(stderr);
+                                console.error('Failed to run "grunt bower-install". \nPlease run "grunt bower-install" afterwards.\n'.red);
+
+                            } else {
+                                done();
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
     inquirer.prompt([{
@@ -216,7 +262,11 @@ exports.template = function(grunt, init, done) {
                 default : false
             }, {
                 name : 'csslint',
-                message : 'Should I lint your CSS with CSSLint'.blue,
+                message : 'Should I lint your CSS with CSSLint',
+                default : 'false'
+            }, {
+                name : 'complexity',
+                message : 'Should I generate a complexity report for your project ?',
                 default : 'false'
             }], function( answers ) {
 
@@ -228,13 +278,15 @@ exports.template = function(grunt, init, done) {
 
                 gruntInit(options);
 
+                installDependencies();
+
             });
         } else {
+
             gruntInit(options);
+
+            installDependencies();
         }
 
-
-
     });
-
 };
