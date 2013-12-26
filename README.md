@@ -20,6 +20,7 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 * Livereload is out of the box. No F5 anymore
 * Automatically output a hash in your assets file name for caching purpose.
 * Set up tests to be run with Karma with Jasmine and generate test coverage report.
+* Automatically run `npm install && bower install && grunt bower-install` to download your projet dependencies
 
 ## Prerequisites
 1. Install [node and npm](http://www.nodejs.org)
@@ -33,13 +34,12 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 1. Create a new folder for your project
 2. Open a terminal and run `grunt-init angular` in your project folder
 3. Answer the questions prompted to you to scaffold your project to your needs
-4. Run `npm install && bower install && grunt bower-install` to download your projet dependencies
-5. Run `grunt server` to serve your static assets at [http://localhost:8888](http://localhost:8888)
-6. Your should see "Yeahhh ! You're ready !" displayed in your browser
-7. Voilà ! Your Angular project is ready !
+4. Run `grunt dev` to serve your static assets at [http://localhost:8888](http://localhost:8888)
+5. Your should see "Yeahhh ! You're ready !" displayed in your browser
+6. Voilà ! Your Angular project is ready !
 
 ## Developement
-* Run `grunt server` to start a static web server and open your browser at [http://localhost:8888](http://localhost:8888). 
+* Run `grunt dev` to start a static web server and open your browser at [http://localhost:8888](http://localhost:8888).
 * Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
 * `jshint` and/or `csslint` will be run on your files when they change.
 * If you choose to have unit tests, they will be run as your test and source files change.
@@ -48,3 +48,9 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 * Run `grunt package` to package your static assets for production.
 * Your package will be generated in a `dist` folder and your javascripts and stylesheets will be concatenated, minified and versionned.
 * Run `grunt` to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.
+
+## Available Grunt tasks
+* `grunt test:unit` : run karma unit tests and show test coverage in console.
+* `grunt test:e2e` : run karma e2e tests
+* `grunt report` : open complexity report in your browser
+* `grunt` : launch `grunt package`, run unit tests and e2e test and generate complexity reports. Use this task for continuous integration.
