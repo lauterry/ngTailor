@@ -22,15 +22,14 @@ exports.notes =
 
 // Template-specific notes to be displayed after question prompts.
 exports.after = 'Your angular project has been successfully generated.'.green +
-    '\nAvailable grunt tasks are :'.cyan +
+    '\nFor more information about ngTailor and its grunt tasks, please see '.green +
+    '\n\n' +
+    'https://github.com/lauterry/ngTailor/blob/master/README.md'.green +
+    '\n\nAvailable grunt tasks are :'.cyan +
     '\n' +
     '° _grunt dev_ : start a static server'.cyan +
     '\n' +
-    '° _grunt package_ : package your web app for distribution'.cyan +
-    '\n' +
-    'For more information about ngTailor, please see '.green +
-    '\n' +
-    'https://github.com/lauterry/ngTailor/blob/master/README.md'.green;
+    '° _grunt package_ : package your web app for distribution'.cyan;
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '';
@@ -127,6 +126,12 @@ exports.template = function(grunt, init, done) {
             packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
             packageContent.devDependencies['karma'] = "~0.10.4";
             packageContent.devDependencies['karma-coverage'] = "~0.1.4";
+
+            exports.after = exports.after +
+                '\n' +
+                '° _grunt test:unit_ : run unit tests and show coverage report'.cyan +
+                '\n' +
+                '° _grunt test:e2e_ : run end-to-end tests'.cyan;
         }
 
         if (options.revision === true) {
@@ -139,6 +144,10 @@ exports.template = function(grunt, init, done) {
 
         if (options.complexity === true) {
             packageContent.devDependencies['grunt-plato'] = "~0.2.1";
+
+            exports.after = exports.after +
+                '\n' +
+                '° _grunt report_ : display a complexity report in your browser'.cyan;
         }
 
         init.writePackageJSON('package.json', packageContent);
@@ -261,13 +270,15 @@ exports.template = function(grunt, init, done) {
                 message: "Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)",
                 default : false
             }, {
+                type: "confirm",
                 name : 'csslint',
                 message : 'Should I lint your CSS with CSSLint',
-                default : 'false'
+                default : false
             }, {
+                type: "confirm",
                 name : 'complexity',
                 message : 'Should I generate a complexity report for your project ?',
-                default : 'false'
+                default : false
             }], function( answers ) {
 
                 for (var attr in answers) {

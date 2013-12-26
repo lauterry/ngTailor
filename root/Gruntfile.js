@@ -167,8 +167,8 @@ module.exports = function(grunt) {
         grunt.config('csslint.all.src', filepath);
     });
 
-    {% if (test) { %}grunt.registerTask('e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
-    {% if (test) { %}grunt.registerTask('unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
+    {% if (test) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
+    {% if (test) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
     grunt.registerTask('dev', ['connect:dev_server', {% if (test) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
