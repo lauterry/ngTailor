@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             },
             all : {
-                src : ['<%= assetsDir %>/js']
+                src : ['<%= assetsDir %>/js/**/*.js']
             }
         }{% if (revision) { %},
         rev: {
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
-                tasks: ['jshint' {% if (test) { %}, 'karma:dev_unit:run' {% } %}]
+                tasks: ['newer:jshint' {% if (test) { %}, 'karma:dev_unit:run' {% } %}]
             },
             html : {
                 files: ['<%= assetsDir %>/**/*.html']
@@ -145,8 +145,7 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        }{% } %}
-        {% if (complexity) { %},
+        }{% } %}{% if (complexity) { %},
         plato : {
             options: {
                 jshint : grunt.file.readJSON('.jshintrc'),
@@ -159,12 +158,6 @@ module.exports = function(grunt) {
             }
         }
         {% } %}
-    });
-
-    // on watch events configure jshint:all to only run on changed file
-    grunt.event.on('watch', function(action, filepath) {
-        grunt.config('jshint.all.src', filepath);
-        grunt.config('csslint.all.src', filepath);
     });
 
     {% if (test) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
