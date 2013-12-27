@@ -12,7 +12,7 @@ exports.description = 'Scaffold out an AngularJS application, writing your Grunt
 
 // Template-specific notes to be displayed before question prompts.
 exports.notes =
-    '° _Normal mode_ : Generate me an angularjs project with the minimal options.'.cyan +
+    '° _Fast mode_ : Generate me an angularjs project with the minimal options.'.cyan +
     '\n' +
     '° _Advanced mode_ : Let me customize my scaffolding and add more features.'.cyan +
     '\n\n' +
@@ -40,6 +40,13 @@ exports.template = function(grunt, init, done) {
     var inquirer = require("inquirer");
     var semver = require("semver");
     var path = require('path');
+    var Insight = require('insight');
+    var insight = new Insight({
+        trackingProvider : 'google',
+        trackingCode: 'UA-46551712-2',
+        packageName: 'ngTailor',
+        packageVersion: '0.0.0'
+    });
     var _s = require('underscore.string');
     var status = require('cli-status');
         status.configure({
@@ -62,7 +69,9 @@ exports.template = function(grunt, init, done) {
         test : false,
         revision : false,
         gitignore : false,
-        i18n : false
+        i18n : false,
+        csspreprocessor : 'none',
+        tests : false
     };
 
 
@@ -79,7 +88,7 @@ exports.template = function(grunt, init, done) {
 
         files = init.filesToCopy(options);
 
-        if (!options.gitignore === true) {
+        if (options.gitignore === false) {
             delete files['.gitignore'];
         }
 
@@ -87,12 +96,17 @@ exports.template = function(grunt, init, done) {
             delete files['.csslintrc'];
         }
 
-        if (!options.test === true) {
+        if (options.test === false || options.tests.unit === false) {
+            delete files['test'];
+            delete files['test/conf/unit-test-conf.js'];
+            delete files['test/unit/appSpec.js'];
+            delete files['test/.jshintrc'];
+        }
+
+        if (options.test === false || options.tests.e2e === false) {
             delete files['test'];
             delete files['test/conf/e2e-test-conf.js'];
-            delete files['test/conf/unit-test-conf.js'];
             delete files['test/e2e/scenarios.js'];
-            delete files['test/unit/appSpec.js'];
             delete files['test/.jshintrc'];
         }
 
@@ -124,10 +138,9 @@ exports.template = function(grunt, init, done) {
             }
         };
 
-        if (options.test === true) {
+        if (options.test === true && options.tests.unit === true) {
             packageContent.devDependencies['grunt-karma'] = "~0.6.2";
             packageContent.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
-            packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
             packageContent.devDependencies['karma-chrome-launcher'] = "~0.1.0";
             packageContent.devDependencies['karma-firefox-launcher'] = "~0.1.0";
             packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
@@ -137,7 +150,15 @@ exports.template = function(grunt, init, done) {
 
             exports.after = exports.after +
                 '\n' +
-                '° _grunt test:unit_ : run unit tests and show coverage report'.cyan +
+                '° _grunt test:unit_ : run unit tests and show coverage report'.cyan;
+        }
+
+        if (options.test === true && options.tests.e2e === true) {
+            packageContent.devDependencies['grunt-karma'] = "~0.6.2";
+            packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
+            packageContent.devDependencies['karma'] = "~0.10.4";
+
+            exports.after = exports.after +
                 '\n' +
                 '° _grunt test:e2e_ : run end-to-end tests'.cyan;
         }
@@ -184,11 +205,13 @@ exports.template = function(grunt, init, done) {
             bowerContent.devDependencies['angular-mocks'] = options.angular_version;
         }
 
-        options.modules.map(function(module){
-            if (options.modules.indexOf(module) !== -1) {
-                bowerContent.dependencies['angular-' + module] = options.angular_version;
-            }
-        });
+        if(options.modules){
+            options.modules.map(function(module){
+                if (options.modules.indexOf(module) !== -1) {
+                    bowerContent.dependencies['angular-' + module] = options.angular_version;
+                }
+            });
+        }
 
         init.writePackageJSON('bower.json', bowerContent);
 
@@ -259,12 +282,15 @@ exports.template = function(grunt, init, done) {
         type: "list",
         name: "mode",
         message: "Which mode do you want to run ?",
-        choices: ["Normal", "Advanced"]
+        choices: ["Fast", "Advanced"]
     }], function( answers ) {
 
         var mode = answers.mode;
 
-        if(mode === "Advanced"){
+        if (mode === "Advanced"){
+
+            insight.track('init', 'advanced');
+
             inquirer.prompt([{
                 type: "input",
                 name: "name",
@@ -329,6 +355,11 @@ exports.template = function(grunt, init, done) {
                     }
                 }
 
+                if(options.tests){
+                    options.tests.e2e = options.tests.indexOf('e2e') !== -1;
+                    options.tests.unit = options.tests.indexOf('unit') !== -1;
+                }
+
                 console.log( JSON.stringify(answers, null, "  ") );
 
                 gruntInit(options);
@@ -337,6 +368,8 @@ exports.template = function(grunt, init, done) {
 
             });
         } else {
+
+            insight.track('init', 'fast');
 
             gruntInit(options);
 

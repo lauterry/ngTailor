@@ -124,18 +124,13 @@ module.exports = function(grunt) {
             }{% } %}
         }{% if (test) { %},
         karma: {
-            dev_unit: {
+            {% if (tests.unit) { %}dev_unit: {
                 options: {
                     configFile: 'test/conf/unit-test-conf.js',
                         background: true,  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
                         singleRun: false,
                         autoWatch: true,
                         reporters: ['progress']
-                }
-            },
-            e2e: {
-                options: {
-                    configFile: 'test/conf/e2e-test-conf.js'
                 }
             },
             dist_unit: {
@@ -150,7 +145,12 @@ module.exports = function(grunt) {
                             dir : '../reports/coverage'
                         }
                 }
-            }
+            },{% } %}
+            {% if (tests.e2e) { %}e2e: {
+                options: {
+                    configFile: 'test/conf/e2e-test-conf.js'
+                }
+            }{% } %}
         }{% } %}{% if (complexity) { %},
         plato : {
             options: {
@@ -180,12 +180,12 @@ module.exports = function(grunt) {
         }{% } %}
     });
 
-    {% if (test) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
-    {% if (test) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
+    {% if (tests.e2e) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
+    {% if (tests.unit) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
-    grunt.registerTask('dev', ['connect:dev_server', {% if (test) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
+    grunt.registerTask('dev', ['connect:dev_server', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
-    grunt.registerTask('default', ['package'{%if(test){%}, 'connect:dist_server', 'karma:dist_unit:start', 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
+    grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:dist_server',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 
 
 };
