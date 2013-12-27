@@ -32,7 +32,7 @@ exports.after = 'Your angular project has been successfully generated.'.green +
     '° _grunt package_ : package your web app for distribution'.cyan;
 
 // Any existing file or directory matching this wildcard will cause a warning.
-exports.warnOn = '';
+exports.warnOn = '*';
 
 // The actual init template.
 exports.template = function(grunt, init, done) {
@@ -167,46 +167,21 @@ exports.template = function(grunt, init, done) {
             version: options.version,
             description: options.description,
             dependencies: {
-                "angular": options.angular_version,
-                "angular-route": options.angular_version
+                "angular": options.angular_version
             },
             "devDependencies": {
-                "angular-mocks": options.angular_version
             }
         };
 
-        if (options.modules.i18n) {
-            bowerContent.dependencies['angular-i18n'] = options.angular_version;
+        if (options.test === true) {
+            bowerContent.devDependencies['angular-mocks'] = options.angular_version;
         }
 
-        if (options.modules.route) {
-            bowerContent.dependencies['angular-route'] = options.angular_version;
-        }
-
-
-        if (options.modules.resource) {
-            bowerContent.dependencies['angular-resource'] = options.angular_version;
-        }
-
-
-        if (options.modules.animate) {
-            bowerContent.dependencies['angular-animate'] = options.angular_version;
-        }
-
-
-        if (options.modules.cookies) {
-            bowerContent.dependencies['angular-cookies'] = options.angular_version;
-        }
-
-
-        if (options.modules.sanitize) {
-            bowerContent.dependencies['angular-sanitize'] = options.angular_version;
-        }
-
-
-        if (options.modules.touch) {
-            bowerContent.dependencies['angular-touch'] = options.angular_version;
-        }
+        options.modules.map(function(module){
+            if (options.modules.indexOf(module) !== -1) {
+                bowerContent.dependencies['angular-' + module] = options.angular_version;
+            }
+        });
 
         init.writePackageJSON('bower.json', bowerContent);
 
@@ -329,6 +304,8 @@ exports.template = function(grunt, init, done) {
                         options[attr] = answers[attr];
                     }
                 }
+
+                console.log( JSON.stringify(answers, null, "  ") );
 
                 gruntInit(options);
 
