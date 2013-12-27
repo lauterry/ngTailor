@@ -139,6 +139,10 @@ exports.template = function(grunt, init, done) {
             packageContent.devDependencies['grunt-rev'] = "~0.1.0";
         }
 
+        if (options.csspreprocessor === 'sass') {
+            packageContent.devDependencies['grunt-contrib-sass'] = "~0.6.0";
+        }
+
         if (options.csslint === true) {
             packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
         }
@@ -179,6 +183,9 @@ exports.template = function(grunt, init, done) {
 
     }
 
+    /**
+     * Run npm install, bower install and grunt bower-install
+     */
     function installDependencies() {
         console.log('\n[1/3] Running npm install ...'.blue);
 
@@ -275,6 +282,12 @@ exports.template = function(grunt, init, done) {
                 name : 'csslint',
                 message : 'Should I lint your CSS with CSSLint',
                 default : false
+            }, {
+                type: "list",
+                name : 'csspreprocessor',
+                message : 'Should I set up one of those CSS preprocessors ?',
+                choices: [ "none", "sass" ],
+                default : 0
             }, {
                 type: "confirm",
                 name : 'complexity',

@@ -81,7 +81,11 @@ module.exports = function(grunt) {
                 files: ['<%= assetsDir %>/css/**/*.css']{% if (csslint) { %},
                 tasks: ['csslint']
                 {% } %}
-            }
+            }{% if (csspreprocessor === 'sass') { %},
+            scss: {
+                files : ['<%= assetsDir %>/scss/**/*.scss'],
+                tasks: ['newer:sass:all']
+            }{% } %}
         }{% if (csslint) { %},
         csslint: {
             options: {
@@ -125,7 +129,8 @@ module.exports = function(grunt) {
                     configFile: 'test/conf/unit-test-conf.js',
                         background: true,  // The background option will tell grunt to run karma in a child process so it doesn't block subsequent grunt tasks.
                         singleRun: false,
-                        autoWatch: true
+                        autoWatch: true,
+                        reporters: ['progress']
                 }
             },
             e2e: {
@@ -139,10 +144,11 @@ module.exports = function(grunt) {
                         background: false,
                         singleRun: true,
                         autoWatch: false,
+                        reporters: ['progress', 'coverage'],
                         coverageReporter : {
-                        type : 'html',
+                            type : 'html',
                             dir : '../reports/coverage'
-                    }
+                        }
                 }
             }
         }{% } %}{% if (complexity) { %},
@@ -156,15 +162,29 @@ module.exports = function(grunt) {
                     'reports/complexity': ['<%= assetsDir %>/js/**/*.js']
                 }
             }
-        }
-        {% } %}
+        }{% } %}{% if (csspreprocessor === 'sass') { %},
+        sass: {
+            options : {
+                style : 'expanded',
+                trace : true
+            },
+            all: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= assetsDir %>/scss',
+                    src: ['**/*.scss'],
+                    dest: '<%= assetsDir %>/css',
+                    ext: '.css'
+                }]
+            }
+        }{% } %}
     });
 
     {% if (test) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
     {% if (test) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
     grunt.registerTask('dev', ['connect:dev_server', {% if (test) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
-    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
+    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
     grunt.registerTask('default', ['package'{%if(test){%}, 'connect:dist_server', 'karma:dist_unit:start', 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 
 
