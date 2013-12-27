@@ -40,17 +40,9 @@ exports.template = function(grunt, init, done) {
     var inquirer = require("inquirer");
     var semver = require("semver");
     var path = require('path');
-    var Insight = require('insight');
-    var insight = new Insight({
-        trackingProvider : 'google',
-        trackingCode: 'UA-46551712-2',
-        packageName: 'ngTailor',
-        packageVersion: '0.0.0'
-    });
     var _s = require('underscore.string');
     var status = require('cli-status');
         status.configure({
-            // See options
             type : 'ellipsis',
             prefix  : 'In progress',
             autoStepTime : 500
@@ -278,76 +270,86 @@ exports.template = function(grunt, init, done) {
         });
     }
 
-    inquirer.prompt([{
-        type: "list",
-        name: "mode",
-        message: "Which mode do you want to run ?",
-        choices: ["Fast", "Advanced"]
-    }], function( answers ) {
+    inquirer.prompt([
+        {
+            type: "list",
+            name: "mode",
+            message: "Which mode do you want to run ?",
+            choices: ["Fast", "Advanced"]
+        }
+    ], function (answers) {
 
         var mode = answers.mode;
 
-        if (mode === "Advanced"){
+        if (mode === "Advanced") {
 
-            insight.track('init', 'advanced');
-
-            inquirer.prompt([{
-                type: "input",
-                name: "name",
-                message: "Name your project",
-                default: currentWorkingDirectory
-            }, {
-                type: "input",
-                name: "angular_version",
-                message: "Version of angular (leave blank to fetch the latest version available or specify one)",
-                validate: function( value ) {
-                    var valid = semver.validRange(value);
-                    if(valid === null){
-                        return "Please enter a valid semantic version (semver.org)";
-                    } else {
-                        return true;
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "Name your project",
+                    default: currentWorkingDirectory
+                },
+                {
+                    type: "input",
+                    name: "angular_version",
+                    message: "Version of angular (leave blank to fetch the latest version available or specify one)",
+                    validate: function (value) {
+                        var valid = semver.validRange(value);
+                        if (valid === null) {
+                            return "Please enter a valid semantic version (semver.org)";
+                        } else {
+                            return true;
+                        }
                     }
+                },
+                {
+                    type: "checkbox",
+                    name: "modules",
+                    message: "What angular module do you need ?",
+                    choices: [ "i18n", "route", "resource", "animate", "cookies", "sanitize", "touch" ]
+                },
+                {
+                    type: "confirm",
+                    name: "test",
+                    message: "Should I set up tests configuration ?",
+                    default: false
+                },
+                {
+                    type: "checkbox",
+                    name: "tests",
+                    message: "Which tests should I set up ?",
+                    choices: [ "unit", "e2e" ],
+                    when: function (answers) {
+                        return answers.test === true;
+                    }
+                },
+                {
+                    type: "confirm",
+                    name: "revision",
+                    message: "Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)",
+                    default: false
+                },
+                {
+                    type: "confirm",
+                    name: 'csslint',
+                    message: 'Should I lint your CSS with CSSLint',
+                    default: false
+                },
+                {
+                    type: "list",
+                    name: 'csspreprocessor',
+                    message: 'Should I set up one of those CSS preprocessors ?',
+                    choices: [ "none", "sass" ],
+                    default: 0
+                },
+                {
+                    type: "confirm",
+                    name: 'complexity',
+                    message: 'Should I generate a complexity report for your project ?',
+                    default: false
                 }
-            },{
-                type: "checkbox",
-                name: "modules",
-                message: "What angular module do you need ?",
-                choices: [ "i18n", "route", "resource", "animate", "cookies", "sanitize", "touch" ]
-            }, {
-                type: "confirm",
-                name: "test",
-                message: "Should I set up tests configuration ?",
-                default : false
-            }, {
-                type: "checkbox",
-                name: "tests",
-                message: "Which tests should I set up ?",
-                choices: [ "unit", "e2e" ],
-                when: function( answers ) {
-                    return answers.test === true;
-                }
-            }, {
-                type: "confirm",
-                name: "revision",
-                message: "Rename JS & CSS files for browser caching purpose ?  (i.e. app.js becomes 8664d46sf64.app.js)",
-                default : false
-            }, {
-                type: "confirm",
-                name : 'csslint',
-                message : 'Should I lint your CSS with CSSLint',
-                default : false
-            }, {
-                type: "list",
-                name : 'csspreprocessor',
-                message : 'Should I set up one of those CSS preprocessors ?',
-                choices: [ "none", "sass" ],
-                default : 0
-            }, {
-                type: "confirm",
-                name : 'complexity',
-                message : 'Should I generate a complexity report for your project ?',
-                default : false
-            }], function( answers ) {
+            ], function (answers) {
 
                 for (var attr in answers) {
                     if (answers.hasOwnProperty(attr)) {
@@ -355,12 +357,12 @@ exports.template = function(grunt, init, done) {
                     }
                 }
 
-                if(options.tests){
+                if (options.tests) {
                     options.tests.e2e = options.tests.indexOf('e2e') !== -1;
                     options.tests.unit = options.tests.indexOf('unit') !== -1;
                 }
 
-                console.log( JSON.stringify(answers, null, "  ") );
+                console.log(JSON.stringify(answers, null, "  "));
 
                 gruntInit(options);
 
@@ -369,12 +371,11 @@ exports.template = function(grunt, init, done) {
             });
         } else {
 
-            insight.track('init', 'fast');
-
             gruntInit(options);
 
             installDependencies();
         }
 
     });
+
 };
