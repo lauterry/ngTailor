@@ -273,7 +273,7 @@ exports.template = function(grunt, init, done) {
             }, {
                 type: "input",
                 name: "angular_version",
-                message: "Version of angular",
+                message: "Version of angular (leave blank to fetch the latest version available or specify one)",
                 validate: function( value ) {
                     var valid = semver.validRange(value);
                     if(valid === null){
