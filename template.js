@@ -41,6 +41,13 @@ exports.template = function(grunt, init, done) {
     var semver = require("semver");
     var path = require('path');
     var _s = require('underscore.string');
+    var status = require('cli-status');
+        status.configure({
+            // See options
+            type : 'ellipsis',
+            prefix  : 'In progress',
+            autoStepTime : 500
+        });
     var exec = require('child_process').exec,
         child;
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
@@ -191,9 +198,15 @@ exports.template = function(grunt, init, done) {
      * Run npm install, bower install and grunt bower-install
      */
     function installDependencies() {
-        console.log('\n[1/3] Running npm install ...'.blue);
+        console.log('\n');
+        status.configure({
+            prefix  : '[1/3] Running npm install'.blue
+        });
+        status.start();
 
         child = exec('npm install', function (error, stdout, stderr) {
+
+            status.end();
 
             if (error !== null) {
 
@@ -202,8 +215,14 @@ exports.template = function(grunt, init, done) {
 
             } else {
 
-                console.log('\n[2/3] Running bower install ...'.blue);
+                status.configure({
+                    prefix  : '[2/3] Running bower install'.blue
+                });
+                status.start();
+
                 exec('bower install', function (error, stdout, stderr) {
+
+                    status.end();
 
                     if (error !== null) {
 
@@ -212,9 +231,14 @@ exports.template = function(grunt, init, done) {
 
                     } else {
 
-                        console.log('\n[3/3] Running grunt bower-install ...'.blue);
+                        status.configure({
+                            prefix  : '[3/3] Running grunt bower-install'.blue
+                        });
+                        status.start();
 
                         exec('grunt bower-install', function (error, stdout, stderr) {
+
+                            status.end();
 
                             if (error !== null) {
 
