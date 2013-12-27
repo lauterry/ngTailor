@@ -175,8 +175,37 @@ exports.template = function(grunt, init, done) {
             }
         };
 
-        if (options.i18n) {
+        if (options.modules.i18n) {
             bowerContent.dependencies['angular-i18n'] = options.angular_version;
+        }
+
+        if (options.modules.route) {
+            bowerContent.dependencies['angular-route'] = options.angular_version;
+        }
+
+
+        if (options.modules.resource) {
+            bowerContent.dependencies['angular-resource'] = options.angular_version;
+        }
+
+
+        if (options.modules.animate) {
+            bowerContent.dependencies['angular-animate'] = options.angular_version;
+        }
+
+
+        if (options.modules.cookies) {
+            bowerContent.dependencies['angular-cookies'] = options.angular_version;
+        }
+
+
+        if (options.modules.sanitize) {
+            bowerContent.dependencies['angular-sanitize'] = options.angular_version;
+        }
+
+
+        if (options.modules.touch) {
+            bowerContent.dependencies['angular-touch'] = options.angular_version;
         }
 
         init.writePackageJSON('bower.json', bowerContent);

@@ -6,3 +6,4 @@ app/vendor
 .idea
 *.iml
 .DS_Store
+.sass-cache/
