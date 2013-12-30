@@ -16,7 +16,7 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 ## Features
 * Let you choose the Angularjs modules you need.
 * Your assets dependencies are managed by [bower](http://www.bower.io)
-* Run [https://twitter.com/briantford](Briand Ford) [ng-min](https://github.com/btford/ngmin) before your minification
+* Run [Brian Ford](https://twitter.com/briantford) [ng-min](https://github.com/btford/ngmin) before your minification
 * Replace your scripts and stylesheets declaration with the minified version when packaging your app for production thanks to [http://yeoman.io/](Yeoman) [grunt-usemin](https://github.com/yeoman/grunt-usemin)
 * Watch for you assets changes and automatically run `jshint` or `csslint` on your code and even unit tests.
 * Livereload is out of the box. No F5 anymore
@@ -24,7 +24,7 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 * Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.
 * Automatically run `npm install && bower install && grunt bower-install` to download your projet dependencies and import them in your index.html
 * Compile you SASS files
-* Visualize Javascript source complexity with [https://github.com/es-analysis/plato](plato) [http://es-analysis.github.io/plato/examples/grunt/](See an example of a plato report)
+* Visualize Javascript source complexity with [plato](https://github.com/es-analysis/plato). ([See an example of a plato report](http://es-analysis.github.io/plato/examples/grunt/))
 
 ## ngTailor vs Yeoman ?
 Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
