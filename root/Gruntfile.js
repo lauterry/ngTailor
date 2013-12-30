@@ -84,7 +84,7 @@ module.exports = function(grunt) {
             }{% if (csspreprocessor === 'sass') { %},
             scss: {
                 files : ['<%= assetsDir %>/scss/**/*.scss'],
-                tasks: ['newer:sass:all']
+                tasks: ['sass:all']
             }{% } %}
         }{% if (csslint) { %},
         csslint: {
@@ -169,13 +169,9 @@ module.exports = function(grunt) {
                 trace : true
             },
             all: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= assetsDir %>/scss',
-                    src: ['**/*.scss'],
-                    dest: '<%= assetsDir %>/css',
-                    ext: '.css'
-                }]
+                files: {
+                    '<%= assetsDir %>/css/app.css': '<%= assetsDir %>/scss/app.scss'
+                }
             }
         }{% } %}
     });
@@ -183,7 +179,7 @@ module.exports = function(grunt) {
     {% if (tests.e2e) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
     {% if (tests.unit) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
-    grunt.registerTask('dev', ['connect:dev_server', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
+    grunt.registerTask('dev', [{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'connect:dev_server', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
     grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:dist_server',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 

@@ -88,6 +88,13 @@ exports.template = function(grunt, init, done) {
             delete files['.csslintrc'];
         }
 
+        if (options.csspreprocessor !== 'sass') {
+            delete files['app/scss/app.scss'];
+            delete files['app/scss/style.scss'];
+        } else {
+            delete files['app/css/app.css'];
+        }
+
         if (options.test === false || options.tests.unit === false) {
             delete files['test'];
             delete files['test/conf/unit-test-conf.js'];
@@ -361,8 +368,6 @@ exports.template = function(grunt, init, done) {
                     options.tests.e2e = options.tests.indexOf('e2e') !== -1;
                     options.tests.unit = options.tests.indexOf('unit') !== -1;
                 }
-
-                console.log(JSON.stringify(answers, null, "  "));
 
                 gruntInit(options);
 
