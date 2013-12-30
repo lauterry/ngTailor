@@ -1,7 +1,7 @@
 ngTailor [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ==================
 
-Scaffold an Angular project with Grunt and Bower configurations fitted to your needs.
+Offer you a tailor-made workflow for your Angularjs Web App.
 
 <img height="250" align="left" src="http://bower.io/img/bower-logo.png">
 
@@ -10,17 +10,27 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 <img height="250" align="left" src="http://gruntjs.com/img/grunt-logo.svg">
 
 ## Why is ngTailor interesting ?
-* Interactive way to scaffold your angular project to fit your needs. 
-  Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.
+You love Angularjs, Grunt and Bower ? You might be interested by ngTailor.
+ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower configurations and prepare for you revelant Grunt tasks you needs.
+
+## Features
+* Let you choose the Angularjs modules you need.
 * Your assets dependencies are managed by [bower](http://www.bower.io)
-* Automatically run [ng-min](https://github.com/btford/ngmin) before your minification process
-* Do not handle manually one index.html for development and one index.html for production thanks to [grunt-usemin](https://github.com/yeoman/grunt-usemin).
-  Automatically replace your scripts and stylesheets declaration with the minified version when packaging your app for production.
+* Run [https://twitter.com/briantford](Briand Ford) [ng-min](https://github.com/btford/ngmin) before your minification
+* Replace your scripts and stylesheets declaration with the minified version when packaging your app for production thanks to [http://yeoman.io/](Yeoman) [grunt-usemin](https://github.com/yeoman/grunt-usemin)
 * Watch for you assets changes and automatically run `jshint` or `csslint` on your code and even unit tests.
 * Livereload is out of the box. No F5 anymore
 * Automatically output a hash in your assets file name for caching purpose.
-* Set up tests to be run with Karma with Jasmine and generate test coverage report.
-* Automatically run `npm install && bower install && grunt bower-install` to download your projet dependencies
+* Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.
+* Automatically run `npm install && bower install && grunt bower-install` to download your projet dependencies and import them in your index.html
+* Compile you SASS files
+* Visualize Javascript source complexity with [https://github.com/es-analysis/plato](plato) [http://es-analysis.github.io/plato/examples/grunt/](See an example of a plato report)
+
+## ngTailor vs Yeoman ?
+Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
+Yeoman is great but in my opinion, its generator-angular provides a bloated solution to manage and build angularjs applications.
+ngTailor let you choose in a much more fine-grained way, each tools or components you want to be included in your application and workflow.
+Note that ngTailor do not provide generator for directives, controllers etc like yeoman and generator-angular do.
 
 ## Prerequisites
 1. Install [node and npm](http://www.nodejs.org)
@@ -33,10 +43,14 @@ Scaffold an Angular project with Grunt and Bower configurations fitted to your n
 ## Generate your Angular project
 1. Create a new folder for your project
 2. Open a terminal and run `grunt-init angular` in your project folder
-3. Answer the questions prompted to you to scaffold your project to your needs
-4. Run `grunt dev` to serve your static assets at [http://localhost:8888](http://localhost:8888)
-5. Your should see "Yeahhh ! You're ready !" displayed in your browser
-6. Voilà ! Your Angular project is ready !
+3. Choose between "Fast mode" or "Advanced mode":
+  * "Fast mode" : Generate an Angularjs project with the minimal options.
+  * "Advanced mode" : Let you customize your scaffolding and add more features. Just answer to the prompted questions.
+4. ngTaylor will generate your Angularjs application and download all the dependencies by running ```npm install && bower install```
+To check that everything is ok :
+5. Run `grunt dev` to serve your static assets at [http://localhost:8888](http://localhost:8888)
+6. Your should see "Yeahhh ! You're ready !" displayed in your browser
+7. Voilà ! Your Angular project is ready ! Next step is to discover the available Grunt tasks.
 
 ## Developement
 * Run `grunt dev` to start a static web server and open your browser at [http://localhost:8888](http://localhost:8888).
