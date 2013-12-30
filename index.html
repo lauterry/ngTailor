@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>ngTailor</h1>
-        <h2>Scaffold an Angular project with Grunt and Bower configurations fitted to your needs</h2>
+        <h2> Offer you a tailor-made workflow for your Angularjs Web App.</h2>
         <a href="https://github.com/lauterry/ngTailor" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -33,20 +33,36 @@
 <h2>
 <a name="why-is-ngtailor-interesting-" class="anchor" href="#why-is-ngtailor-interesting-"><span class="octicon octicon-link"></span></a>Why is ngTailor interesting ?</h2>
 
+<p>You love Angularjs, Grunt and Bower ? You might be interested by ngTailor.
+ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower configurations and prepare for you revelant Grunt tasks you needs.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
 <ul>
-<li>Interactive way to scaffold your angular project to fit your needs. 
-Need angular-i18n locales ? Want angular version 1.2.1 ? You need to lint your CSS ? Just answer a few questions prompted to you.</li>
+<li>Let you choose the Angularjs modules you need.</li>
 <li>Your assets dependencies are managed by <a href="http://www.bower.io">bower</a>
 </li>
-<li>Automatically run <a href="https://github.com/btford/ngmin">ng-min</a> before your minification process</li>
-<li>Do not handle manually one index.html for development and one index.html for production thanks to <a href="https://github.com/yeoman/grunt-usemin">grunt-usemin</a>.
-Automatically replace your scripts and stylesheets declaration with the minified version when packaging your app for production.</li>
+<li>Run <a href="Briand%20Ford">https://twitter.com/briantford</a> <a href="https://github.com/btford/ngmin">ng-min</a> before your minification</li>
+<li>Replace your scripts and stylesheets declaration with the minified version when packaging your app for production thanks to <a href="Yeoman">http://yeoman.io/</a> <a href="https://github.com/yeoman/grunt-usemin">grunt-usemin</a>
+</li>
 <li>Watch for you assets changes and automatically run <code>jshint</code> or <code>csslint</code> on your code and even unit tests.</li>
 <li>Livereload is out of the box. No F5 anymore</li>
 <li>Automatically output a hash in your assets file name for caching purpose.</li>
-<li>Set up tests to be run with Karma with Jasmine and generate test coverage report.</li>
-<li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies</li>
+<li>Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.</li>
+<li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies and import them in your index.html</li>
+<li>Compile you SASS files</li>
+<li>Visualize Javascript source complexity with <a href="plato">https://github.com/es-analysis/plato</a> <a href="See%20an%20example%20of%20a%20plato%20report">http://es-analysis.github.io/plato/examples/grunt/</a>
+</li>
 </ul><h2>
+<a name="ngtailor-vs-yeoman-" class="anchor" href="#ngtailor-vs-yeoman-"><span class="octicon octicon-link"></span></a>ngTailor vs Yeoman ?</h2>
+
+<p>Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
+Yeoman is great but in my opinion, its generator-angular provides a bloated solution to manage and build angularjs applications.
+ngTailor let you choose in a much more fine-grained way, each tools or components you want to be included in your application and workflow.
+Note that ngTailor do not provide generator for directives, controllers etc like yeoman and generator-angular do.</p>
+
+<h2>
 <a name="prerequisites" class="anchor" href="#prerequisites"><span class="octicon octicon-link"></span></a>Prerequisites</h2>
 
 <ol>
@@ -66,11 +82,19 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <ol>
 <li>Create a new folder for your project</li>
 <li>Open a terminal and run <code>grunt-init angular</code> in your project folder</li>
-<li>Answer the questions prompted to you to scaffold your project to your needs</li>
+<li>Choose between "Fast mode" or "Advanced mode":
+
+<ul>
+<li>"Fast mode" : Generate an Angularjs project with the minimal options.</li>
+<li>"Advanced mode" : Let you customize your scaffolding and add more features. Just answer to the prompted questions.</li>
+</ul>
+</li>
+<li>ngTaylor will generate your Angularjs application and download all the dependencies by running <code>npm install &amp;&amp; bower install</code>
+To check that everything is ok :</li>
 <li>Run <code>grunt dev</code> to serve your static assets at <a href="http://localhost:8888">http://localhost:8888</a>
 </li>
 <li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
-<li>Voilà ! Your Angular project is ready !</li>
+<li>Voilà ! Your Angular project is ready ! Next step is to discover the available Grunt tasks.</li>
 </ol><h2>
 <a name="developement" class="anchor" href="#developement"><span class="octicon octicon-link"></span></a>Developement</h2>
 
@@ -86,7 +110,8 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <ul>
 <li>Run <code>grunt package</code> to package your static assets for production.</li>
 <li>Your package will be generated in a <code>dist</code> folder and your javascripts and stylesheets will be concatenated, minified and versionned.</li>
-<li>Run <code>grunt</code> to prepare your static assets for production, run unit tests, end-to-end tests and generate reports.</li>
+<li>
+<code>grunt</code> : launch <code>grunt package</code>, run unit tests and e2e test and generate complexity report. Use this task for continuous integration.</li>
 </ul><h2>
 <a name="available-grunt-tasks" class="anchor" href="#available-grunt-tasks"><span class="octicon octicon-link"></span></a>Available Grunt tasks</h2>
 
@@ -97,8 +122,6 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 <code>grunt test:e2e</code> : run karma e2e tests</li>
 <li>
 <code>grunt report</code> : open complexity report in your browser</li>
-<li>
-<code>grunt</code> : launch <code>grunt package</code>, run unit tests and e2e test and generate complexity reports. Use this task for continuous integration.</li>
 </ul>
         </section>
 
