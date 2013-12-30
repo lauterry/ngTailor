@@ -1,7 +1,7 @@
 ngTailor [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ==================
 
-Offer you a tailor-made workflow for your Angularjs Web App.
+Offers you a tailor-made workflow for your Angularjs Web App.
 
 <img height="250" align="left" src="http://bower.io/img/bower-logo.png">
 
