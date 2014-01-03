@@ -50,6 +50,9 @@ exports.template = function(grunt, init, done) {
     var exec = require('child_process').exec,
         child;
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
+    var thirdModuleMapping = {
+        "angular-ui-router" : "ui.router"
+    };
 
     var options = {
         name : currentWorkingDirectory,
@@ -108,6 +111,26 @@ exports.template = function(grunt, init, done) {
             delete files['test/e2e/scenarios.js'];
             delete files['test/.jshintrc'];
         }
+
+        // build the list of modules to declare as your module dependencies
+        options.importedModules = "[  ";
+        if(options.modules){
+            options.modules.map(function(module){
+                if (options.modules.indexOf(module) !== -1) {
+                    options.importedModules = options.importedModules + "'ng" + _s.capitalize(module) + "', ";
+                }
+            });
+
+        }
+
+        if(options.thirdModules){
+            options.thirdModules.map(function(module){
+                if (options.thirdModules.indexOf(module) !== -1) {
+                    options.importedModules = options.importedModules + "'" + thirdModuleMapping[module] + "', ";
+                }
+            });
+        }
+        options.importedModules = options.importedModules.substring(0, options.importedModules.length - 2) + "]";
 
         init.copyAndProcess(files, options, {noProcess: '.gitignore'});
 
@@ -208,6 +231,14 @@ exports.template = function(grunt, init, done) {
             options.modules.map(function(module){
                 if (options.modules.indexOf(module) !== -1) {
                     bowerContent.dependencies['angular-' + module] = options.angular_version;
+                }
+            });
+        }
+
+        if(options.thirdModules){
+            options.thirdModules.map(function(module){
+                if (options.thirdModules.indexOf(module) !== -1) {
+                    bowerContent.dependencies[module] = "*";
                 }
             });
         }
@@ -313,8 +344,14 @@ exports.template = function(grunt, init, done) {
                 {
                     type: "checkbox",
                     name: "modules",
-                    message: "What angular module do you need ?",
+                    message: "What official angular modules do you need ?",
                     choices: [ "i18n", "route", "resource", "animate", "cookies", "sanitize", "touch" ]
+                },
+                {
+                    type: "checkbox",
+                    name: 'thirdModules',
+                    message: 'What amazing angular modules do you need ?',
+                    choices: [ "angular-ui-router" ]
                 },
                 {
                     type: "confirm",
