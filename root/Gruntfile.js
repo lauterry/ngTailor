@@ -173,6 +173,21 @@ module.exports = function(grunt) {
                     '<%= assetsDir %>/css/app.css': '<%= assetsDir %>/scss/app.scss'
                 }
             }
+        }{% } %}{% if (imagemin === true) { %},
+        imagemin : {
+            dist : {
+                options : {
+                    optimizationLevel: 7,
+                    progressive : false,
+                    interlaced : true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= assetsDir %>/',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= distDir %>/'
+                }]
+            }
         }{% } %}
     });
 
@@ -180,7 +195,7 @@ module.exports = function(grunt) {
     {% if (tests.unit) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
     grunt.registerTask('dev', [{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'connect:dev_server', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
-    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %},  'usemin']);
+    grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %}, {% if (imagemin === true) { %}imagemin{% } %}, 'usemin']);
     grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:dist_server',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 
 

@@ -197,6 +197,10 @@ exports.template = function(grunt, init, done) {
             packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
         }
 
+        if (options.imagemin === true) {
+            packageContent.devDependencies['grunt-contrib-imagemin'] = "~0.4.1";
+        }
+
         if (options.complexity === true) {
             packageContent.devDependencies['grunt-plato'] = "~0.2.1";
 
@@ -386,6 +390,12 @@ exports.template = function(grunt, init, done) {
                     message: 'Should I set up one of those CSS preprocessors ?',
                     choices: [ "none", "sass" ],
                     default: 0
+                },
+                {
+                    type: "confirm",
+                    name: "imagemin",
+                    message: "Should I optimize your images (gif, png, jpeg) ?",
+                    default: false
                 },
                 {
                     type: "confirm",
