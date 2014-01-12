@@ -66,7 +66,10 @@ exports.template = function(grunt, init, done) {
         gitignore : false,
         i18n : false,
         csspreprocessor : 'none',
-        tests : false
+        tests : false,
+        imagemin : false,
+        modules : [],
+        thirdModules : []
     };
 
 
@@ -112,7 +115,7 @@ exports.template = function(grunt, init, done) {
             delete files['test/.jshintrc'];
         }
 
-        // build the list of modules to declare as your module dependencies
+        // build the list of angular official modules to declare as your module dependencies
         options.importedModules = "[  ";
         if(options.modules){
             options.modules.map(function(module){
@@ -123,6 +126,7 @@ exports.template = function(grunt, init, done) {
 
         }
 
+        // build the list of external modules as your module dependencies
         if(options.thirdModules){
             options.thirdModules.map(function(module){
                 if (options.thirdModules.indexOf(module) !== -1) {

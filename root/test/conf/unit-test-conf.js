@@ -15,13 +15,19 @@ module.exports = function (config) {
             // list of files / patterns to load in the browser
             files: [
                 'vendor/angular/angular.js',
-                'vendor/angular-route/angular-route.js',
+                {% if (modules.i18n) { %}'vendor/angular-i18n/angular-i18n.js',{% } %}
+                {% if (modules.indexOf('route') !== -1) { %}'vendor/angular-route/angular-route.js',{% } %}
+                {% if (modules.indexOf('resource') !== -1) { %}'vendor/angular-resource/angular-resource.js',{% } %}
+                {% if (modules.indexOf('animate') !== -1) { %}'vendor/angular-animate/angular-animate.js',{% } %}
+                {% if (modules.indexOf('cookies') !== -1) { %}'vendor/angular-cookies/angular-cookies.js',{% } %}
+                {% if (modules.indexOf('sanitize') !== -1) { %}'vendor/angular-sanitize/angular-sanitize.js',{% } %}
+                {% if (modules.indexOf('touch') !== -1) { %}'vendor/angular-touch/angular-touch.js',{% } %}
+                {% if (thirdModules.indexOf('angular-ui-router') !== -1) { %}'vendor/angular-ui-router/release/angular-ui-router.js',{% } %}
                 'vendor/angular-mocks/angular-mocks.js',
                 'js/*.js',
                 '../test/unit/**/*.js',
                 '**/*.html'
             ],
-
 
             // list of files to exclude
             exclude: [
