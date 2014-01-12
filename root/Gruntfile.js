@@ -48,6 +48,25 @@ module.exports = function(grunt) {
         usemin: {
             html: '<%= distDir %>/index.html'
         },
+        browser_sync: {
+            dev: {
+                bsFiles: {
+                    src : ['<%= assetsDir %>/**/*.html', '<%= assetsDir %>/**/*.js', '<%= assetsDir %>/**/*.css']
+                },
+                options: {
+                    watchTask: true,
+                        ghostMode: {
+                        clicks: true,
+                            scroll: true,
+                            links: true,
+                            forms: true
+                    },
+                    server: {
+                        baseDir: "<%= assetsDir %>"
+                    }
+                }
+            }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'
@@ -67,9 +86,6 @@ module.exports = function(grunt) {
             }
         }{% } %},
         watch: {
-            options: {
-                livereload: true
-            },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
                 tasks: ['newer:jshint' {% if (test) { %}, 'karma:dev_unit:run' {% } %}]
@@ -96,16 +112,7 @@ module.exports = function(grunt) {
             }
         }{% } %},
         connect: {
-            dev_server: {
-                options: {
-                    port: 8888,
-                        base: '<%= assetsDir %>',
-                        keepalive: false,
-                        livereload: true,
-                        open: true
-                }
-            },
-            dist_server : {
+            test : {
                 options: {
                     port: 8887,
                         base: '<%= assetsDir %>',
@@ -191,12 +198,12 @@ module.exports = function(grunt) {
         }{% } %}
     });
 
-    {% if (tests.e2e) { %}grunt.registerTask('test:e2e', ['connect:dist_server', 'karma:e2e']);{% } %}
-    {% if (tests.unit) { %}grunt.registerTask('test:unit', ['connect:dist_server', 'karma:dist_unit:start']);{% } %}
+    {% if (tests.e2e) { %}grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);{% } %}
+    {% if (tests.unit) { %}grunt.registerTask('test:unit', ['karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
-    grunt.registerTask('dev', [{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'connect:dev_server', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
+    grunt.registerTask('dev', [{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'browser_sync', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin' {% if (revision) { %}, 'rev'{% } %}, {% if (imagemin === true) { %}'imagemin'{% } %}, 'usemin']);
-    grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:dist_server',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
+    grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:test',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
 
 
 };
