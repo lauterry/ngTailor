@@ -86,6 +86,9 @@ module.exports = function(grunt) {
             }
         }{% } %},
         watch: {
+            options : {
+                interrupt: true
+            },
             js: {
                 files: ['<%= assetsDir %>/js/**/*.js'],
                 tasks: ['newer:jshint' {% if (test) { %}, 'karma:dev_unit:run' {% } %}]
