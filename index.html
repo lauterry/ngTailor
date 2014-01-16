@@ -53,6 +53,9 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 <li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your projet dependencies and import them in your index.html</li>
 <li>Compile you SASS files</li>
 <li>Visualize Javascript source complexity with <a href="https://github.com/es-analysis/plato">plato</a>. (<a href="http://es-analysis.github.io/plato/examples/grunt/">See an example of a plato report</a>)</li>
+<li>Optimize your images (png, jpeg, gif)</li>
+<li>Keep multiple browsers devices in sync using <a href="https://github.com/shakyShane/browser-sync">grunt-browser-sync</a>
+</li>
 </ul><h2>
 <a name="ngtailor-vs-yeoman-" class="anchor" href="#ngtailor-vs-yeoman-"><span class="octicon octicon-link"></span></a>ngTailor vs Yeoman ?</h2>
 
@@ -121,6 +124,44 @@ To check that everything is ok :</li>
 <code>grunt test:e2e</code> : run karma e2e tests</li>
 <li>
 <code>grunt report</code> : open complexity report in your browser</li>
+</ul><h2>
+<a name="changelog" class="anchor" href="#changelog"><span class="octicon octicon-link"></span></a>CHANGELOG</h2>
+
+<h3>
+<a name="110-january-16-2013" class="anchor" href="#110-january-16-2013"><span class="octicon octicon-link"></span></a>1.1.0 (January 16, 2013)</h3>
+
+<p>Features:</p>
+
+<ul>
+<li>Add support for keeping multiple browser devices in sync (grunt-contrib-connect is replaced with grunt-browser-sync)</li>
+<li>Add support for grunt-contrib-imagemin to optimize images</li>
+<li>Watch task is interruptable</li>
+<li>Add support for angular-translate</li>
+</ul><p>Bug fixes:</p>
+
+<ul>
+<li>Fix Karma tests dependencies was not dynamic</li>
+<li>Fix jshint task fails when unused parameters in angular.module.config part</li>
+</ul><h3>
+<a name="100-december-31-2013" class="anchor" href="#100-december-31-2013"><span class="octicon octicon-link"></span></a>1.0.0 (December 31, 2013)</h3>
+
+<p>First release</p>
+
+<p>Features:</p>
+
+<ul>
+<li>Add support for common grunt task (uglify, concat, clean, copy)</li>
+<li>Add support for CSSLint with grunt-csslint</li>
+<li>Add support for JSHint with grunt-contrib-jshint</li>
+<li>Add support for ngmin with grunt-ngmin</li>
+<li>Add Sass support with grunt-contrib-sass</li>
+<li>Replace your scripts and stylesheets declaration with the minified version with grunt-usemin</li>
+<li>Add support for Karma and Jasmine</li>
+<li>Choose your official angular modules</li>
+<li>Add angular-ui to the external modules list</li>
+<li>Add support for Plato to visualize your source complexity</li>
+<li>Add watch and reload</li>
+<li>Install bower and npm dependencies after the scaffolding and import them in the index.html using grunt-bower-install</li>
 </ul>
         </section>
 
