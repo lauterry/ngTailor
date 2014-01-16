@@ -25,6 +25,8 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 * Automatically run `npm install && bower install && grunt bower-install` to download your projet dependencies and import them in your index.html
 * Compile you SASS files
 * Visualize Javascript source complexity with [plato](https://github.com/es-analysis/plato). ([See an example of a plato report](http://es-analysis.github.io/plato/examples/grunt/))
+* Optimize your images (png, jpeg, gif)
+* Keep multiple browsers devices in sync using [grunt-browser-sync](https://github.com/shakyShane/browser-sync)
 
 ## ngTailor vs Yeoman ?
 Both aim to provide you a collection of tools and best practices to improve your productivity as a modern front end developer.
