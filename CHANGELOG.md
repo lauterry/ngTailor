@@ -4,6 +4,7 @@ Features:
   - Add support for keeping multiple browser devices in sync (grunt-contrib-connect is replaced with grunt-browser-sync)
   - Add support for grunt-contrib-imagemin to optimize images
   - Watch task is interruptable
+  - Add support for angular-translate
 
 Bug fixes:
   - Fix Karma tests dependencies was not dynamic
