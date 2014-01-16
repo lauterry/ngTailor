@@ -8,6 +8,7 @@ Features:
 
 Bug fixes:
   - Fix Karma tests dependencies was not dynamic
+  - Fix jshint task fails when unused parameters in angular.module.config part
 
 ## 1.0.0 (December 31, 2013)
 
