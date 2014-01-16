@@ -1,4 +1,4 @@
-## 1.1.0
+## 1.1.0 (January 16, 2013)
 
 Features:
   - Add support for keeping multiple browser devices in sync (grunt-contrib-connect is replaced with grunt-browser-sync)
