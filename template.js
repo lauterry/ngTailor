@@ -51,7 +51,8 @@ exports.template = function(grunt, init, done) {
         child;
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
     var thirdModuleMapping = {
-        "angular-ui-router" : "ui.router"
+        "angular-ui-router" : "ui.router",
+        "angular-translate" : "pascalprecht.translate"
     };
 
     var options = {
@@ -119,7 +120,7 @@ exports.template = function(grunt, init, done) {
         options.importedModules = "[  ";
         if(options.modules){
             options.modules.map(function(module){
-                if (options.modules.indexOf(module) !== -1) {
+                if (module !== "i18n") {
                     options.importedModules = options.importedModules + "'ng" + _s.capitalize(module) + "', ";
                 }
             });
@@ -129,9 +130,7 @@ exports.template = function(grunt, init, done) {
         // build the list of external modules as your module dependencies
         if(options.thirdModules){
             options.thirdModules.map(function(module){
-                if (options.thirdModules.indexOf(module) !== -1) {
-                    options.importedModules = options.importedModules + "'" + thirdModuleMapping[module] + "', ";
-                }
+                options.importedModules = options.importedModules + "'" + thirdModuleMapping[module] + "', ";
             });
         }
         options.importedModules = options.importedModules.substring(0, options.importedModules.length - 2) + "]";
@@ -360,7 +359,7 @@ exports.template = function(grunt, init, done) {
                     type: "checkbox",
                     name: 'thirdModules',
                     message: 'What amazing angular modules do you need ?',
-                    choices: [ "angular-ui-router" ]
+                    choices: [ "angular-ui-router", "angular-translate" ]
                 },
                 {
                     type: "confirm",

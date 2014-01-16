@@ -23,6 +23,7 @@ module.exports = function (config) {
                 {% if (modules.indexOf('sanitize') !== -1) { %}'vendor/angular-sanitize/angular-sanitize.js',{% } %}
                 {% if (modules.indexOf('touch') !== -1) { %}'vendor/angular-touch/angular-touch.js',{% } %}
                 {% if (thirdModules.indexOf('angular-ui-router') !== -1) { %}'vendor/angular-ui-router/release/angular-ui-router.js',{% } %}
+                {% if (thirdModules.indexOf('pascalprecht.translate') !== -1) { %}'vendor/angular-translate/angular-translate.js',{% } %}
                 'vendor/angular-mocks/angular-mocks.js',
                 'js/*.js',
                 '../test/unit/**/*.js',

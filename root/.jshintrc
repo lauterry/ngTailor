@@ -7,7 +7,6 @@
     "immed" : true,
     "latedef" : true,
     "newcap" : true,
-    "unused": true,
     "strict" : true,
     "trailing" : true,
     "globals": {
