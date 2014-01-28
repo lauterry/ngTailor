@@ -1,4 +1,15 @@
-## 1.1.0 (January 16, 2013)
+## 1.2.0 ()
+
+Features:
+  - Add support for angular-carousel
+  - Add support for angular-snap
+  - Add support for angular-bindonce
+
+
+Bug fixes:
+  - Fix "Required config property "bower-install.target.src" missing."
+
+## 1.1.0 (January 16, 2014)
 
 Features:
   - Add support for keeping multiple browser devices in sync (grunt-contrib-connect is replaced with grunt-browser-sync)

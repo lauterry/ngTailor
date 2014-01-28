@@ -52,7 +52,10 @@ exports.template = function(grunt, init, done) {
     var currentWorkingDirectory = process.cwd().split(path.sep).pop();
     var thirdModuleMapping = {
         "angular-ui-router" : "ui.router",
-        "angular-translate" : "pascalprecht.translate"
+        "angular-translate" : "pascalprecht.translate",
+        "revolunet-angular-carousel" : "angular-carousel",
+        "angular-snap" : "snap",
+        "angular-bindonce" : "pasvaz.bindonce"
     };
 
     var options = {
@@ -359,7 +362,7 @@ exports.template = function(grunt, init, done) {
                     type: "checkbox",
                     name: 'thirdModules',
                     message: 'What amazing angular modules do you need ?',
-                    choices: [ "angular-ui-router", "angular-translate" ]
+                    choices: [ "angular-ui-router", "angular-translate", "angular-snap", "revolunet-angular-carousel", "angular-bindonce" ]
                 },
                 {
                     type: "confirm",

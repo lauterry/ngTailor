@@ -24,10 +24,15 @@ module.exports = function (config) {
                 {% if (modules.indexOf('touch') !== -1) { %}'vendor/angular-touch/angular-touch.js',{% } %}
                 {% if (thirdModules.indexOf('angular-ui-router') !== -1) { %}'vendor/angular-ui-router/release/angular-ui-router.js',{% } %}
                 {% if (thirdModules.indexOf('pascalprecht.translate') !== -1) { %}'vendor/angular-translate/angular-translate.js',{% } %}
+                {% if (thirdModules.indexOf('revolunet-angular-carousel') !== -1) { %}
+                'vendor/angular-touch/angular-touch.js',
+                'vendor/revolunet-angular-carousel/dist/angular-carousel.js',
+                {% } %}
+                {% if (thirdModules.indexOf('angular-snap') !== -1) { %}'vendor/angular-snap/angular-snap.js',{% } %}
+                {% if (thirdModules.indexOf('angular-bindonce') !== -1) { %}'vendor/angular-bindonce/bindonce.js',{% } %}
                 'vendor/angular-mocks/angular-mocks.js',
                 'js/*.js',
-                '../test/unit/**/*.js',
-                '**/*.html'
+                '../test/unit/**/*.js'
             ],
 
             // list of files to exclude
@@ -41,7 +46,7 @@ module.exports = function (config) {
             reporters: ['progress', 'coverage'],
 
             // web server port
-            port: 9876,
+            port: 9877,
 
             // enable / disable colors in the output (reporters and logs)
             colors: true,
