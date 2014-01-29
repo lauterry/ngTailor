@@ -5,9 +5,9 @@ Features:
   - Add support for angular-snap
   - Add support for angular-bindonce
 
-
 Bug fixes:
   - Fix "Required config property "bower-install.target.src" missing."
+  - Fix "angularjs script not imported in th eindex.html in the correct order" by updating grunt-bower-install
 
 ## 1.1.0 (January 16, 2014)
 

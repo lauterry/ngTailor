@@ -67,3 +67,7 @@ To check that everything is ok :
 * `grunt test:unit` : run karma unit tests and show test coverage in console.
 * `grunt test:e2e` : run karma e2e tests
 * `grunt report` : open complexity report in your browser
+
+## Update ngTailor
+* `rm -rf ~/.grunt-init/angular`
+* `git clone https://github.com/lauterry/ngTailor.git ~/.grunt-init/angular`

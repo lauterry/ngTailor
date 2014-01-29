@@ -161,7 +161,7 @@ exports.template = function(grunt, init, done) {
                 "grunt-contrib-jshint": "~0.7.2",
                 "grunt-contrib-connect": "~0.5.0",
                 "load-grunt-tasks": "~0.2.0",
-                "grunt-bower-install": "~0.6.1",
+                "grunt-bower-install": "~0.8.0",
                 "grunt-newer": "~0.6.0",
                 "grunt-browser-sync": "~0.4.8"
             }

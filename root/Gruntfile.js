@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    "use strict";
+
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
@@ -9,7 +11,7 @@ module.exports = function(grunt) {
 
         'bower-install': {
             target: {
-                html: '<%= assetsDir %>/index.html',
+                src: '<%= assetsDir %>/index.html',
                 ignorePath: '<%= assetsDir %>/',
                 jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>',
                 cssPattern: '<link rel="stylesheet" href="{{filePath}}" >'
