@@ -1,4 +1,4 @@
-## 1.2.0 ()
+## 1.2.0 (January 30, 2014)
 
 Features:
   - Add support for angular-carousel
@@ -7,7 +7,7 @@ Features:
 
 Bug fixes:
   - Fix "Required config property "bower-install.target.src" missing."
-  - Fix "angularjs script not imported in th eindex.html in the correct order" by updating grunt-bower-install
+  - Fix "angularjs script not imported in the index.html in the correct order"
 
 ## 1.1.0 (January 16, 2014)
 
