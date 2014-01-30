@@ -57,7 +57,7 @@ module.exports = function(grunt) {
                 },
                 options: {
                     watchTask: true,
-                        ghostMode: {
+                    ghostMode: {
                         clicks: true,
                         scroll: true,
                         links: false, // must be false to avoid interfering with angular routing

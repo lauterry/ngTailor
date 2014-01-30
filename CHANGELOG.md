@@ -1,3 +1,8 @@
+## 1.2.1 (January 31, 2014)
+
+Bug fixes:
+  - Fix "broswer-sync interference with angular routing"
+
 ## 1.2.0 (January 30, 2014)
 
 Features:
