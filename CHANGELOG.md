@@ -1,7 +1,12 @@
-## 1.2.2 (February xx, 2014)
+## 1.2.2 (February 11, 2014)
+
+Enhancements:
+  - moved sample controllers in a separate controllers folders
+  - add default project README.md
 
 Bug fixes:
   - useminPrepare destination folder is now parameterized (before, the folder was 'dist' by default)
+
 
 ## 1.2.1 (January 31, 2014)
 
