@@ -50,12 +50,12 @@ Note that ngTailor do not provide generator for directives, controllers etc like
   * "Advanced mode" : Let you customize your scaffolding and add more features. Just answer to the prompted questions.
 4. ngTaylor will generate your Angularjs application and download all the dependencies by running ```npm install && bower install```
 To check that everything is ok :
-5. Run `grunt dev` to serve your static assets at [http://localhost:8888](http://localhost:8888)
+5. Run `grunt dev` to serve your static assets
 6. Your should see "Yeahhh ! You're ready !" displayed in your browser
 7. Voilà ! Your Angular project is ready ! Next step is to discover the available Grunt tasks.
 
 ## Developement
-* Run `grunt dev` to start a static web server and open your browser at [http://localhost:8888](http://localhost:8888).
+* Run `grunt dev` to start a static web server and open your browser.
 * Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.
 * `jshint` and/or `csslint` will be run on your files when they change.
 * If you choose to have unit tests, they will be run as your test and source files change.
