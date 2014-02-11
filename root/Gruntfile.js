@@ -45,7 +45,10 @@ module.exports = function(grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= assetsDir %>/index.html'
+            html: '<%= assetsDir %>/index.html',
+            options: {
+                dest: '<%= distDir %>'
+            }
         },
         usemin: {
             html: '<%= distDir %>/index.html'
