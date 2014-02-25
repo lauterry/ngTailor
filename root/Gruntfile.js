@@ -9,6 +9,28 @@ module.exports = function(grunt) {
         assetsDir: 'app',
         distDir: 'dist',
 
+        availabletasks: {
+            tasks: {
+                options: {
+                    filter: 'include',
+                    groups: {
+                        'Development': ['dev', {% if (tests.unit) { %}'test:unit',{% } %} {% if (tests.e2e) { %}'test:e2e',{% } %} {% if (complexity) { %}'report'{% } %}],
+                        'Production': ['package'],
+                        'Continuous Integration': ['ci']
+                    },
+                    sort: ['dev', 'test:unit', 'test:e2e', 'report', 'package', 'ci'],
+                    descriptions: {
+                        'dev' : 'Launch the static server and watch tasks',
+                        {% if (tests.unit) { %}'test:unit' : 'Run unit tests and show coverage report',{% } %}
+                        {% if (tests.e2e) { %}'test:e2e' : 'Run end-to-end tests',{% } %}
+                        {% if (complexity) { %}'report' : 'Open Plato reports in your browser',{% } %}
+                        'package' : 'Package your web app for distribution',
+                        'ci' : 'Run unit & e2e tests, package your webapp and generate reports. Use this task for Continuous Integration'
+                    },
+                    tasks: ['dev', {% if (tests.unit) { %}'test:unit',{% } %} {% if (tests.e2e) { %}'test:e2e',{% } %}  'package', {% if (complexity) { %}'report',{% } %} 'ci']
+                }
+            }
+        },
         'bower-install': {
             target: {
                 src: '<%= assetsDir %>/index.html',
@@ -211,7 +233,7 @@ module.exports = function(grunt) {
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
     grunt.registerTask('dev', [{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'browser_sync', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin', {% if (revision) { %} 'rev',{% } %} {% if (imagemin === true) { %}'imagemin',{% } %} 'usemin']);
-    grunt.registerTask('default', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:test',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
-
+    grunt.registerTask('ci', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:test',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
+    grunt.registerTask('ls', ['availabletasks']);
 
 };
