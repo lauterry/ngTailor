@@ -18,6 +18,7 @@
 * `grunt` : launch `grunt package`, run unit tests and e2e test and generate complexity report. Use this task for continuous integration.
 
 ## Available Grunt tasks
+* `grunt ls` : list and describe the available grunt tasks of your project.
 * `grunt test:unit` : run karma unit tests and show test coverage in console.
 * `grunt test:e2e` : run karma e2e tests
 * `grunt report` : open complexity report in your browser
