@@ -1,6 +1,6 @@
 {
   "name": "ngTailor",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Offers you a tailor-made workflow for your Angularjs Web App",
   "dependencies": {
     "cli-status": "~0.1.1",
