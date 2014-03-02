@@ -23,7 +23,7 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 * Automatically output a hash in your assets file name for caching purpose.
 * Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.
 * Automatically run `npm install && bower install && grunt bower-install` to download your project dependencies and import them in your index.html
-* Compile you SASS files
+* Compile you SASS | LESS files
 * Visualize Javascript source complexity with [plato](https://github.com/es-analysis/plato). ([See an example of a plato report](http://es-analysis.github.io/plato/examples/grunt/))
 * Optimize your images (png, jpeg, gif)
 * Keep multiple browsers devices in sync using [grunt-browser-sync](https://github.com/shakyShane/browser-sync)
