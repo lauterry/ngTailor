@@ -51,7 +51,7 @@ ngTailor scaffolds out a new Angularjs application, writing your Grunt and Bower
 <li>Automatically output a hash in your assets file name for caching purpose.</li>
 <li>Set up unit and e2e tests with Karma and Jasmine and generate test coverage report.</li>
 <li>Automatically run <code>npm install &amp;&amp; bower install &amp;&amp; grunt bower-install</code> to download your project dependencies and import them in your index.html</li>
-<li>Compile you SASS files</li>
+<li>Compile you SASS | LESS files</li>
 <li>Visualize Javascript source complexity with <a href="https://github.com/es-analysis/plato">plato</a>. (<a href="http://es-analysis.github.io/plato/examples/grunt/">See an example of a plato report</a>)</li>
 <li>Optimize your images (png, jpeg, gif)</li>
 <li>Keep multiple browsers devices in sync using <a href="https://github.com/shakyShane/browser-sync">grunt-browser-sync</a>
@@ -93,15 +93,14 @@ by running <code>git clone https://github.com/lauterry/ngTailor.git ~/.grunt-ini
 </li>
 <li>ngTaylor will generate your Angularjs application and download all the dependencies by running <code>npm install &amp;&amp; bower install</code>
 To check that everything is ok :</li>
-<li>Run <code>grunt dev</code> to serve your static assets at <a href="http://localhost:8888">http://localhost:8888</a>
-</li>
+<li>Run <code>grunt dev</code> to serve your static assets</li>
 <li>Your should see "Yeahhh ! You're ready !" displayed in your browser</li>
 <li>Voilà ! Your Angular project is ready ! Next step is to discover the available Grunt tasks.</li>
 </ol><h2>
 <a name="developement" class="anchor" href="#developement"><span class="octicon octicon-link"></span></a>Developement</h2>
 
 <ul>
-<li>Run <code>grunt dev</code> to start a static web server and open your browser at <a href="http://localhost:8888">http://localhost:8888</a>.</li>
+<li>Run <code>grunt dev</code> to start a static web server and open your browser.</li>
 <li>Livereload will be automatically active meaning that you can see your modification on the browser without hitting F5.</li>
 <li>
 <code>jshint</code> and/or <code>csslint</code> will be run on your files when they change.</li>
@@ -118,6 +117,8 @@ To check that everything is ok :</li>
 <a name="available-grunt-tasks" class="anchor" href="#available-grunt-tasks"><span class="octicon octicon-link"></span></a>Available Grunt tasks</h2>
 
 <ul>
+<li>
+<code>grunt ls</code> : list and describe the available grunt tasks of your project.</li>
 <li>
 <code>grunt test:unit</code> : run karma unit tests and show test coverage in console.</li>
 <li>
