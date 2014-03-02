@@ -2,6 +2,7 @@
 
 Features
   - Display available grunt tasks with `grunt ls`
+  - Less is added to the list of pre processors
 
 ## 1.2.2 (February 11, 2014)
 

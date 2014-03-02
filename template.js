@@ -1,6 +1,5 @@
 /*
- * grunt-init-angular
- *
+ * ngTailor
  * Copyright (c) 2013 Thierry LAU
  * Licensed under the MIT license.
  */
@@ -105,6 +104,13 @@ exports.template = function(grunt, init, done) {
             delete files['app/css/app.css'];
         }
 
+        if (options.csspreprocessor !== 'less') {
+            delete files['app/less/app.less'];
+            delete files['app/less/style.less'];
+        } else {
+            delete files['app/css/app.css'];
+        }
+
         if (options.test === false || options.tests.unit === false) {
             delete files['test'];
             delete files['test/conf/unit-test-conf.js'];
@@ -199,6 +205,10 @@ exports.template = function(grunt, init, done) {
 
         if (options.csspreprocessor === 'sass') {
             packageContent.devDependencies['grunt-contrib-sass'] = "~0.6.0";
+        }
+
+        if (options.csspreprocessor === 'less') {
+            packageContent.devDependencies['grunt-contrib-less'] = "~0.10.0";
         }
 
         if (options.csslint === true) {
@@ -396,7 +406,7 @@ exports.template = function(grunt, init, done) {
                     type: "list",
                     name: 'csspreprocessor',
                     message: 'Should I set up one of those CSS preprocessors ?',
-                    choices: [ "none", "sass" ],
+                    choices: [ "none", "sass", "less" ],
                     default: 0
                 },
                 {
