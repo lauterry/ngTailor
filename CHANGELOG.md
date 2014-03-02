@@ -1,3 +1,8 @@
+## 1.3.0 (???, 2014)
+
+Features
+  - Display available grunt tasks with `grunt ls`
+
 ## 1.2.2 (February 11, 2014)
 
 Enhancements:
