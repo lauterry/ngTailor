@@ -21,14 +21,11 @@ exports.notes =
 
 // Template-specific notes to be displayed after question prompts.
 exports.after = 'Your angular project has been successfully generated.'.green +
-    '\nFor more information about ngTailor and its grunt tasks, please see '.green +
-    '\n\n' +
-    'https://github.com/lauterry/ngTailor/blob/master/README.md'.green +
-    '\n\nAvailable grunt tasks are :'.cyan +
+    '\nngTailor has prepared some revelant grunt tasks for you.'.green +
+    '\nRun "grunt ls" to display them in your console.'.green +
+    '\n\nFor more information about ngTailor and its grunt tasks, please see '.blue +
     '\n' +
-    '° _grunt dev_ : start a static server'.cyan +
-    '\n' +
-    '° _grunt package_ : package your web app for distribution'.cyan;
+    'https://github.com/lauterry/ngTailor/blob/master/README.md'.blue;
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '*';
@@ -183,20 +180,12 @@ exports.template = function(grunt, init, done) {
             packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
             packageContent.devDependencies['karma'] = "~0.10.4";
             packageContent.devDependencies['karma-coverage'] = "~0.1.4";
-
-            exports.after = exports.after +
-                '\n' +
-                '° _grunt test:unit_ : run unit tests and show coverage report'.cyan;
         }
 
         if (options.test === true && options.tests.e2e === true) {
             packageContent.devDependencies['grunt-karma'] = "~0.6.2";
             packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
             packageContent.devDependencies['karma'] = "~0.10.4";
-
-            exports.after = exports.after +
-                '\n' +
-                '° _grunt test:e2e_ : run end-to-end tests'.cyan;
         }
 
         if (options.revision === true) {
@@ -221,10 +210,6 @@ exports.template = function(grunt, init, done) {
 
         if (options.complexity === true) {
             packageContent.devDependencies['grunt-plato'] = "~0.2.1";
-
-            exports.after = exports.after +
-                '\n' +
-                '° _grunt report_ : display a complexity report in your browser'.cyan;
         }
 
         init.writePackageJSON('package.json', packageContent);
