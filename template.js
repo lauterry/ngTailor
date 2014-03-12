@@ -166,7 +166,7 @@ exports.template = function(grunt, init, done) {
                 "load-grunt-tasks": "~0.2.0",
                 "grunt-bower-install": "~0.8.0",
                 "grunt-newer": "~0.6.0",
-                "grunt-browser-sync": "~0.4.8",
+                "grunt-browser-sync": "~0.7.0",
                 "grunt-available-tasks": "~0.4.2"
             }
         };

@@ -1,4 +1,9 @@
-## 1.3.0 (???, 2014)
+## 1.3.1 (??? ??, 2014)
+
+Enhancements:
+  - Update grunt-browser-sync to 0.7.0 (adding middleware is now supported)
+
+## 1.3.0 (March 3 , 2014)
 
 Features
   - Display available grunt tasks with `grunt ls`

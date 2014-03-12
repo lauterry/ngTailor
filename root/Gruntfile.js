@@ -75,7 +75,7 @@ module.exports = function(grunt) {
         usemin: {
             html: '<%= distDir %>/index.html'
         },
-        browser_sync: {
+        browserSync: {
             dev: {
                 bsFiles: {
                     src : ['<%= assetsDir %>/**/*.html', '<%= assetsDir %>/**/*.js', '<%= assetsDir %>/**/*.css']
@@ -246,7 +246,7 @@ module.exports = function(grunt) {
     {% if (tests.e2e) { %}grunt.registerTask('test:e2e', ['connect:test', 'karma:e2e']);{% } %}
     {% if (tests.unit) { %}grunt.registerTask('test:unit', ['karma:dist_unit:start']);{% } %}
     {% if (complexity) { %}grunt.registerTask('report', ['plato', 'connect:plato']);{% } %}
-    grunt.registerTask('dev', [{% if (csspreprocessor === 'less') { %}'less:all',{% } %}{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'browser_sync', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
+    grunt.registerTask('dev', [{% if (csspreprocessor === 'less') { %}'less:all',{% } %}{% if (csspreprocessor === 'sass') { %}'sass',{% } %}'browserSync', {% if (tests.unit) { %}  'karma:dev_unit:start',  {% } %} 'watch']);
     grunt.registerTask('package', ['jshint', 'clean', 'useminPrepare', 'copy', 'concat', 'ngmin', 'uglify', {% if (csspreprocessor === 'less') { %}'less:all',{% } %} {% if (csspreprocessor === 'sass') { %}'sass',{% } %} 'cssmin', {% if (revision) { %} 'rev',{% } %} {% if (imagemin === true) { %}'imagemin',{% } %} 'usemin']);
     grunt.registerTask('ci', ['package'{%if(tests.unit || tests.e2e){%}, 'connect:test',{% } %} {%if(tests.unit){%}'karma:dist_unit:start',{% } %} {%if(tests.e2e){%} 'karma:e2e'{% } %} {% if (complexity) { %} ,'plato'{% } %}]);
     grunt.registerTask('ls', ['availabletasks']);
