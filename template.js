@@ -74,8 +74,8 @@ exports.template = function(grunt, init, done) {
 
 
     function gruntInit(options) {
-        var bowerContent,
-            packageContent,
+        var bowerJSON,
+            packageJSON,
             files;
 
         /**************************
@@ -147,79 +147,60 @@ exports.template = function(grunt, init, done) {
          *  GENERATE PACKAGE.JSON *
          **************************/
 
-        packageContent = {
-            name: options.name,
-            version: options.version,
-            description: options.description,
-            devDependencies: {
-                "grunt-usemin": "~2.0.0",
-                "grunt-ngmin": "0.0.3",
-                "grunt-contrib-clean": "~0.5.0",
-                "grunt-contrib-concat": "~0.3.0",
-                "grunt-contrib-uglify": "~0.2.7",
-                "grunt-contrib-cssmin": "~0.7.0",
-                "grunt-contrib-watch": "~0.5.3",
-                "grunt-bower-task": "~0.3.4",
-                "grunt-contrib-copy": "~0.4.1",
-                "grunt-contrib-jshint": "~0.7.2",
-                "grunt-contrib-connect": "~0.5.0",
-                "load-grunt-tasks": "~0.2.0",
-                "grunt-bower-install": "~0.8.0",
-                "grunt-newer": "~0.6.0",
-                "grunt-browser-sync": "~0.7.0",
-                "grunt-available-tasks": "~0.4.2"
-            }
-        };
+		packageJSON = grunt.file.readJSON('package.json');
+		packageJSON.name = options.name;
+		packageJSON.version =  options.version;
+		packageJSON.description = options.description;
 
         if (options.test === true && options.tests.unit === true) {
-            packageContent.devDependencies['grunt-karma'] = "~0.6.2";
-            packageContent.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
-            packageContent.devDependencies['karma-chrome-launcher'] = "~0.1.0";
-            packageContent.devDependencies['karma-firefox-launcher'] = "~0.1.0";
-            packageContent.devDependencies['karma-jasmine'] = "~0.1.3";
-            packageContent.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
-            packageContent.devDependencies['karma'] = "~0.10.4";
-            packageContent.devDependencies['karma-coverage'] = "~0.1.4";
+            packageJSON.devDependencies['grunt-karma'] = "~0.6.2";
+            packageJSON.devDependencies['karma-ng-html2js-preprocessor'] = "~0.1.0";
+            packageJSON.devDependencies['karma-chrome-launcher'] = "~0.1.0";
+            packageJSON.devDependencies['karma-firefox-launcher'] = "~0.1.0";
+            packageJSON.devDependencies['karma-jasmine'] = "~0.1.3";
+            packageJSON.devDependencies['karma-phantomjs-launcher'] = "~0.1.0";
+            packageJSON.devDependencies['karma'] = "~0.10.4";
+            packageJSON.devDependencies['karma-coverage'] = "~0.1.4";
         }
 
         if (options.test === true && options.tests.e2e === true) {
-            packageContent.devDependencies['grunt-karma'] = "~0.6.2";
-            packageContent.devDependencies['karma-ng-scenario'] = "~0.1.0";
-            packageContent.devDependencies['karma'] = "~0.10.4";
+            packageJSON.devDependencies['grunt-karma'] = "~0.6.2";
+            packageJSON.devDependencies['karma-ng-scenario'] = "~0.1.0";
+            packageJSON.devDependencies['karma'] = "~0.10.4";
         }
 
         if (options.revision === true) {
-            packageContent.devDependencies['grunt-rev'] = "~0.1.0";
+            packageJSON.devDependencies['grunt-rev'] = "~0.1.0";
         }
 
         if (options.csspreprocessor === 'sass') {
-            packageContent.devDependencies['grunt-contrib-sass'] = "~0.6.0";
+            packageJSON.devDependencies['grunt-contrib-sass'] = "~0.6.0";
         }
 
         if (options.csspreprocessor === 'less') {
-            packageContent.devDependencies['grunt-contrib-less'] = "~0.10.0";
+            packageJSON.devDependencies['grunt-contrib-less'] = "~0.10.0";
         }
 
         if (options.csslint === true) {
-            packageContent.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
+            packageJSON.devDependencies['grunt-contrib-csslint'] = "~0.2.0";
         }
 
         if (options.imagemin === true) {
-            packageContent.devDependencies['grunt-contrib-imagemin'] = "~0.4.1";
+            packageJSON.devDependencies['grunt-contrib-imagemin'] = "~0.4.1";
         }
 
         if (options.complexity === true) {
-            packageContent.devDependencies['grunt-plato'] = "~0.2.1";
+            packageJSON.devDependencies['grunt-plato'] = "~0.2.1";
         }
 
-        init.writePackageJSON('package.json', packageContent);
+        init.writePackageJSON('package.json', packageJSON);
 
 
         /***********************
          * GENERATE BOWER.JSON *
          ***********************/
 
-        bowerContent = {
+        bowerJSON = {
             name: options.name,
             version: options.version,
             description: options.description,
@@ -231,13 +212,13 @@ exports.template = function(grunt, init, done) {
         };
 
         if (options.test === true) {
-            bowerContent.devDependencies['angular-mocks'] = options.angular_version;
+            bowerJSON.devDependencies['angular-mocks'] = options.angular_version;
         }
 
         if(options.modules){
             options.modules.map(function(module){
                 if (options.modules.indexOf(module) !== -1) {
-                    bowerContent.dependencies['angular-' + module] = options.angular_version;
+                    bowerJSON.dependencies['angular-' + module] = options.angular_version;
                 }
             });
         }
@@ -245,12 +226,12 @@ exports.template = function(grunt, init, done) {
         if(options.thirdModules){
             options.thirdModules.map(function(module){
                 if (options.thirdModules.indexOf(module) !== -1) {
-                    bowerContent.dependencies[module] = "*";
+                    bowerJSON.dependencies[module] = "*";
                 }
             });
         }
 
-        init.writePackageJSON('bower.json', bowerContent);
+        init.writePackageJSON('bower.json', bowerJSON);
 
     }
 
