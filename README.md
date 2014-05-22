@@ -1,3 +1,5 @@
+### [Important] ngTailor has became a Yeoman generator and has moved to [https://github.com/lauterry/generator-ngtailor](https://github.com/lauterry/generator-ngtailor). This repository will not be maintained anymore. Instead, please have a look at [generator-ngtailor](http://lauterry.github.io/generator-ngtailor/)
+
 ngTailor [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 ==================
 
