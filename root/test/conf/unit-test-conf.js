@@ -32,6 +32,7 @@ module.exports = function (config) {
                 {% if (thirdModules.indexOf('angular-bindonce') !== -1) { %}'vendor/angular-bindonce/bindonce.js',{% } %}
                 'vendor/angular-mocks/angular-mocks.js',
                 'js/*.js',
+				'js/**/*.js',
                 '../test/unit/**/*.js'
             ],
 
